@@ -1,5 +1,3 @@
-import MainButton from '../elements/mainButton'
-
 const TopNav = () => {
     return (
         <div className="w-full h-16 py-4 flex flex-row items-center justify-items-center shadow-md bg-black z-30 fixed">

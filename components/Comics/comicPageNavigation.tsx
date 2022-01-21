@@ -1,5 +1,5 @@
 const ComicPageNavigation = () => {
-
+    return <div />
 }
 
-export default ComicPageNavigation;
+export default ComicPageNavigation
