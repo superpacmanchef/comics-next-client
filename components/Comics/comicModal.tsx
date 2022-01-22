@@ -27,7 +27,7 @@ const ComicModal = (props: ComicModalProps) => {
                 }}
             >
                 <div
-                    className="flex flex-col p-6 bg-gray-700 h-3/4 w-full md:w-3/4 divide-y divide-gray-500 rounded-md"
+                    className="flex flex-col p-6 bg-gray-700 h-3/4 w-11/12 md:w-3/4 divide-y divide-gray-500 rounded-md"
                     onClick={(e) => {
                         e.stopPropagation()
                     }}
@@ -57,7 +57,7 @@ const ComicModal = (props: ComicModalProps) => {
                             <img
                                 alt={comic.title}
                                 src={comic.image}
-                                className="mx-auto w-2/3"
+                                className="mx-auto w-1/2 md:w-auto"
                             />
                         </div>
                         <div className="flex flex-col flex-1 pt-4 w-11/12">
