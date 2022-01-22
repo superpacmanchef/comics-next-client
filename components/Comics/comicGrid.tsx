@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ComicModal from './comicModal'
 import ComicTile from './comicTile'
 
@@ -13,6 +13,14 @@ const ComicGrid = (props: ComicsGridType) => {
     const [focusComic, updateFocusComic] = useState<
         Comic_ShortBoxed_SplitTitle_Image | undefined
     >()
+
+    useEffect(() => {
+        if (displayModal) {
+            document.body.style.overflowY = 'hidden'
+        } else {
+            document.body.style.overflowY = 'scroll'
+        }
+    }, [displayModal])
 
     return (
         <div>

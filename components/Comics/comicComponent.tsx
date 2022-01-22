@@ -19,7 +19,6 @@ const ComicComponent = (props: ComicComponentProps) => {
     const pageChange = useCallback(
         (pageNo: number) => {
             updateCurrentPage(pageNo)
-
             const noPerPage = 10
             const subArray = chosenWeeksComicsFilter.slice(
                 pageNo * noPerPage,

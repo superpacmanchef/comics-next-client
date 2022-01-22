@@ -15,7 +15,9 @@ const ComicModal = (props: ComicModalProps) => {
         return (
             <div
                 className={`fixed inset-0 items-center justify-center bg-gray-700 bg-opacity-50 text-white z-50 ${
-                    displayModal ? 'flex' : 'hidden'
+                    displayModal
+                        ? 'flex overflowy-hidden'
+                        : 'hidden overflowy-hidden'
                 }`}
                 onClick={(e) => {
                     e.stopPropagation()
@@ -26,12 +28,12 @@ const ComicModal = (props: ComicModalProps) => {
                 }}
             >
                 <div
-                    className="flex flex-col p-6 bg-gray-700 h-3/4 w-3/4 divide-y divide-gray-500 rounded-md"
+                    className="flex flex-col p-6 bg-gray-700 h-3/4 md:w-3/4  w-full divide-y divide-gray-500 rounded-md"
                     onClick={(e) => {
                         e.stopPropagation()
                     }}
                 >
-                    <div className="flex items-center justify-between">
+                    <div className="flex  items-center justify-between">
                         <h3 className="text-2xl">{comic.title}</h3>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -51,34 +53,47 @@ const ComicModal = (props: ComicModalProps) => {
                             />
                         </svg>
                     </div>
-                    <div className="flex flex-1 mt-4 overflow-auto ">
+                    <div className="flex flex-col md:flex-row flex-1 mt-4 overflow-auto ">
                         <div className="flex flex-1 pt-4">
                             <img
                                 alt={comic.title}
                                 src={comic.image}
-                                className="mx-auto"
+                                className="mx-auto w-1/2 md:w-auto"
                             />
                         </div>
                         <div className="flex flex-col flex-1 pt-4 max-h-80">
                             <div className="flex flex-col mb-8">
-                                <p className="flex text-2xl">Title</p>
-                                <p className="flex text-xl">
-                                    {comic.title} #{comic.issue_no}
+                                <p className="flex text-lg md:text-2xl">
+                                    Title
+                                </p>
+                                <p className="flex text-md md:text-xl">
+                                    {comic.title}{' '}
+                                    {comic.issue_no ? `#${comic.issue_no}` : ''}
                                 </p>
                             </div>
                             <div className="flex flex-col mb-8">
-                                <p className="flex text-2xl">Description</p>
-                                <p className="flex text-xl">
+                                <p className="flex text-lg md:text-2xl">
+                                    Description
+                                </p>
+                                <p className="flex text-md md:text-xl">
                                     {comic.description}
                                 </p>
                             </div>
+                            {comic.creators && (
+                                <div className="flex flex-col mb-8">
+                                    <p className="flex text-lg md:text-2xl">
+                                        Creators
+                                    </p>
+                                    <p className="flex text-md md:text-xl">
+                                        {comic.creators}
+                                    </p>
+                                </div>
+                            )}
                             <div className="flex flex-col mb-8">
-                                <p className="flex text-2xl">Creators</p>
-                                <p className="flex text-xl">{comic.creators}</p>
-                            </div>
-                            <div className="flex flex-col mb-8">
-                                <p className="flex text-2xl">Release Date</p>
-                                <p className="flex text-xl">
+                                <p className="flex text-lg md:text-2xl">
+                                    Release Date
+                                </p>
+                                <p className="flex text-md md:text-xl">
                                     {comic.release_date}
                                 </p>
                             </div>
