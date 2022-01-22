@@ -6,7 +6,7 @@
 .pnp.js
 
 #envirmoment
-.env
+/.env
 
 # testing
 /coverage
