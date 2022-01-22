@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 
 type ComicModalProps = {
     comic: Comic_ShortBoxed_SplitTitle_Image | undefined
@@ -11,13 +11,12 @@ type ComicModalProps = {
 
 const ComicModal = (props: ComicModalProps) => {
     const { comic, displayModal, updateDisplayModal } = props
+
     if (comic !== undefined) {
         return (
             <div
                 className={`fixed inset-0 items-center justify-center bg-gray-700 bg-opacity-50 text-white z-50 ${
-                    displayModal
-                        ? 'flex overflowy-hidden'
-                        : 'hidden overflowy-hidden'
+                    displayModal ? 'flex ' : 'hidden '
                 }`}
                 onClick={(e) => {
                     e.stopPropagation()
@@ -28,12 +27,12 @@ const ComicModal = (props: ComicModalProps) => {
                 }}
             >
                 <div
-                    className="flex flex-col p-6 bg-gray-700 h-3/4 md:w-3/4  w-full divide-y divide-gray-500 rounded-md"
+                    className="flex flex-col p-6 bg-gray-700 h-3/4 w-full md:w-3/4 divide-y divide-gray-500 rounded-md"
                     onClick={(e) => {
                         e.stopPropagation()
                     }}
                 >
-                    <div className="flex  items-center justify-between">
+                    <div className="flex items-center justify-between">
                         <h3 className="text-2xl">{comic.title}</h3>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -53,15 +52,15 @@ const ComicModal = (props: ComicModalProps) => {
                             />
                         </svg>
                     </div>
-                    <div className="flex flex-col md:flex-row flex-1 mt-4 overflow-auto ">
-                        <div className="flex flex-1 pt-4">
+                    <div className="flex flex-1 flex-col md:flex-row  mt-4 overflow-auto ">
+                        <div className="flex flex-1 pt-4 ">
                             <img
                                 alt={comic.title}
                                 src={comic.image}
-                                className="mx-auto w-1/2 md:w-auto"
+                                className="mx-auto w-2/3"
                             />
                         </div>
-                        <div className="flex flex-col flex-1 pt-4 max-h-80">
+                        <div className="flex flex-col flex-1 pt-4 w-11/12">
                             <div className="flex flex-col mb-8">
                                 <p className="flex text-lg md:text-2xl">
                                     Title
