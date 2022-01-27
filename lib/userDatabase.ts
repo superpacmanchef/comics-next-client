@@ -4,14 +4,18 @@ class DAO {
     db!: Db
 
     constructor() {
-        const connectionString =
-            'mongodb+srv://dbUser:urvh9VL5438WcirF@comicsreactserver.hgt2s.mongodb.net/ComicsReactServer?retryWrites=true&w=majority'
-        // eslint-disable-next-line consistent-return
-        MongoClient.connect(connectionString, (err, client) => {
-            if (err || client === undefined) return console.error(err)
-            console.log('Connected to Database')
-            this.db = client.db('comic-react-server')
-        })
+        console.log(process.env.MONGO_LINK, 'bunms')
+        if (process.env.MONGO_LINK) {
+            const connectionString = process.env.MONGO_LINK
+            // eslint-disable-next-line consistent-return
+            MongoClient.connect(connectionString, (err, client) => {
+                if (err || client === undefined) return console.error(err)
+                console.log('Connected to Database')
+                this.db = client.db('comic-react-server')
+            })
+        } else {
+            throw new Error('NO ENV')
+        }
     }
 
     insertUser(username: string, email: string, password: string) {
