@@ -1,15 +1,52 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import TopNav from '../components/Nav/topNav'
 import MainButton from '../components/elements/mainButton'
 import filterComicPublishers from '../utils/filterComicPublishers'
 import DropDown from '../components/elements/dropDown'
 import ComicComponent from '../components/Comics/comicComponent'
+import filterComicVariants from '../utils/filterComicVariants'
+import comicTitleSplit from '../utils/comicTitleSplit'
+import { useUser } from '../lib/hooks'
 
-const Home: NextPage = () => {
+type HomeProps = {
+    weekComics: Comic_ShortBoxed_SplitTitle_Image[]
+}
+
+export const getServerSideProps = async () => {
+    const shortboxed = filterComicVariants(
+        await axios.get('http://api.shortboxed.com/comics/v1/new')
+    )
+
+    const shortboxedSplitTitle = shortboxed.map((comic) => {
+        const [newComicTitle, issue_no] = comicTitleSplit(comic.title)
+
+        return {
+            ...comic,
+            title: newComicTitle,
+            issue_no,
+        }
+    })
+
+    const weekArrayWithImage: Comic_ShortBoxed_SplitTitle_Image[] =
+        shortboxedSplitTitle.map((comic: Comic_ShortBoxed_SplitTitle) => {
+            return { ...comic, image: 'null' }
+        })
+
+    return {
+        props: {
+            weekComics: weekArrayWithImage,
+        },
+    }
+}
+
+const Home: NextPage<HomeProps> = (props) => {
+    const { weekComics } = props
+
     const [chosenWeeksComics, updateChosenWeeksComics] = useState<
         Comic_ShortBoxed_SplitTitle_Image[]
     >([])
@@ -51,20 +88,14 @@ const Home: NextPage = () => {
     }
 
     useEffect(() => {
-        axios.get('/api/weekComics?week=1').then((res) => {
-            const weekArrayWithImage: Comic_ShortBoxed_SplitTitle_Image[] =
-                res.data.map((comic: Comic_ShortBoxed_SplitTitle) => {
-                    return { ...comic, image: null }
-                })
-            updateChosenWeeksComics(weekArrayWithImage)
-            const filteredChosenWeeksComics = filterComicPublishers(
-                weekArrayWithImage,
-                'ALL',
-                []
-            )
-            updateChosenWeeksComicsFilter(filteredChosenWeeksComics)
-        })
-    }, [])
+        updateChosenWeeksComics(weekComics)
+        const filteredChosenWeeksComics = filterComicPublishers(
+            weekComics,
+            'ALL',
+            []
+        )
+        updateChosenWeeksComicsFilter(filteredChosenWeeksComics)
+    }, [weekComics])
 
     return (
         <div className="h-full flex flex-1 flex-col">

@@ -11,13 +11,14 @@ const ComicComponent = (props: ComicComponentProps) => {
     const { chosenWeeksComicsFilter } = props
 
     const [currentPage, updateCurrentPage] = useState(0)
-    const [currentPageComics, updateCurrentPageComics] = useState<
-        Comic_ShortBoxed_SplitTitle_Image[]
-    >([])
+    const [currentPageComics, updateCurrentPageComics] =
+        useState<Comic_ShortBoxed_SplitTitle_Image[]>()
     const [currentTotalPageNo, updateCurrentTotalPageNo] = useState(1)
+    const [loading, updateLoading] = useState(true)
 
     const pageChange = useCallback(
         (pageNo: number) => {
+            updateLoading(true)
             updateCurrentPage(pageNo)
             const noPerPage = 10
             const subArray = chosenWeeksComicsFilter.slice(
@@ -26,7 +27,7 @@ const ComicComponent = (props: ComicComponentProps) => {
             )
 
             const currentPageMetron = subArray.flatMap((comic) => {
-                if (comic.image === null) {
+                if (comic.image === 'null') {
                     return axios
                         .post('/api/pageComics', { comic })
                         .then((res) => res.data)
@@ -40,8 +41,12 @@ const ComicComponent = (props: ComicComponentProps) => {
                     comic.image = comics[index]
                     return comic
                 })
-
-                updateCurrentPageComics(imageComics)
+                if (imageComics.length > 0) {
+                    updateCurrentPageComics(imageComics)
+                    setTimeout(() => {
+                        updateLoading(false)
+                    }, 300)
+                }
             })
         },
         [chosenWeeksComicsFilter]
@@ -60,7 +65,7 @@ const ComicComponent = (props: ComicComponentProps) => {
                 currentTotalPageNo={currentTotalPageNo}
             />
 
-            <ComicGrid comics={currentPageComics} />
+            <ComicGrid comics={currentPageComics} loading={loading} />
             <ComicPageNavigation
                 currentPage={currentPage}
                 updateCurrentPage={(val) => pageChange(val)}

@@ -35,6 +35,7 @@
    ],
         "@typescript-eslint/naming-convention": "off",
 	"react/function-component-definition" : 0,    
-"react/react-in-jsx-scope": "off"
+"react/react-in-jsx-scope": "off",
+	"react/prop-types" : "off"
     }
 }

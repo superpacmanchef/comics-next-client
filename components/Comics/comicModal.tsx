@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
+import Image from 'next/image'
 import React, { Dispatch, SetStateAction } from 'react'
 
 type ComicModalProps = {
@@ -54,11 +55,16 @@ const ComicModal = (props: ComicModalProps) => {
                     </div>
                     <div className="flex flex-1 flex-col md:flex-row  mt-4 overflow-auto ">
                         <div className="flex flex-1 pt-4 ">
-                            <img
-                                alt={comic.title}
-                                src={comic.image}
-                                className="mx-auto w-1/2 md:w-auto"
-                            />
+                            <div className="mx-auto w-3/4 md:w-3/5 p-3">
+                                <Image
+                                    height={960}
+                                    width={624}
+                                    alt={comic.title}
+                                    src={comic.image}
+                                    quality={50}
+                                    className="mx-auto w-1/3 md:w-auto"
+                                />
+                            </div>
                         </div>
                         <div className="flex flex-col flex-1 pt-4 w-11/12">
                             <div className="flex flex-col mb-8">
@@ -76,6 +82,14 @@ const ComicModal = (props: ComicModalProps) => {
                                 </p>
                                 <p className="flex text-md md:text-xl">
                                     {comic.description}
+                                </p>
+                            </div>
+                            <div className="flex flex-col mb-8">
+                                <p className="flex text-lg md:text-2xl">
+                                    Publisher
+                                </p>
+                                <p className="flex text-md md:text-xl">
+                                    {comic.publisher}
                                 </p>
                             </div>
                             {comic.creators && (
