@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 import ComicGrid from './comicGrid'
@@ -27,17 +28,17 @@ const ComicComponent = (props: ComicComponentProps) => {
             )
 
             const currentPageMetron = subArray.flatMap((comic) => {
-                if (comic.image === 'null') {
+                if (comic.image === 'null' || comic.image === null) {
                     return axios
                         .post('/api/pageComics', { comic })
                         .then((res) => res.data)
+                        .catch((err) => console.log(err))
                 }
                 return comic.image
             })
 
             Promise.all(currentPageMetron).then((comics) => {
                 const imageComics = subArray.map((comic, index) => {
-                    // eslint-disable-next-line no-param-reassign
                     comic.image = comics[index]
                     return comic
                 })

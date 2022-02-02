@@ -1,10 +1,10 @@
 /* eslint-disable import/no-cycle */
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
-import logedReducer from './reducers/logedIn'
+import weekReducer from './reducers/weekComics'
 
 export const store = configureStore({
     reducer: {
-        loged: logedReducer,
+        weekComics: weekReducer,
     },
 })
 

@@ -29,7 +29,6 @@ export default (
     //     })
     //     return f
     // }
-
     const f = comics.filter((comic) => comic.publisher === publisher)
 
     return f

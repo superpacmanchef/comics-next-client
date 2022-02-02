@@ -1,22 +1,20 @@
 import bcrypt from 'bcrypt'
-import dao from './userDatabase'
+import dao, { searchByUsername, insertUser } from './userDatabase'
 
 const saltRound = 10
 
 // eslint-disable-next-line import/prefer-default-export
-export const userExist = (username: string) => {
-    return new Promise<boolean>((resolve, reject) => {
-        dao.searchByUsername(username).then((entries) => {
-            if (entries !== null) {
-                resolve(true)
-            }
-            resolve(false)
-        })
+export const userExist = async (username: string) => {
+    return searchByUsername(username).then((entries) => {
+        if (entries !== null) {
+            return true
+        }
+        return false
     })
 }
 
 export const findUserByUsername = async (username: string) => {
-    return dao.searchByUsername(username).then((entries) => {
+    return searchByUsername(username).then((entries) => {
         if (entries != null) {
             return entries
         }
@@ -25,13 +23,11 @@ export const findUserByUsername = async (username: string) => {
 }
 
 export const validatePassword = async (user: any, password: any) => {
-    console.log(user.password, password, 'password')
-    bcrypt.compare(password, user.password, (err, result) => {
-        if (result) {
-            return true
-        }
-        return false
-    })
+    const result = await bcrypt.compare(password, user.password)
+    if (result) {
+        return true
+    }
+    return false
 }
 
 export const createUser = (
@@ -47,7 +43,7 @@ export const createUser = (
         if (!exist) {
             return bcrypt.genSalt(saltRound, (err1, salt) => {
                 bcrypt.hash(password, saltRound, (err2, hash) => {
-                    dao.insertUser(username, email, hash)
+                    insertUser(username, email, hash)
                     return exist
                 })
             })

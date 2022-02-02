@@ -1,5 +1,4 @@
 import { parse, serialize } from 'cookie'
-import { CookieOptions } from 'express-session'
 import { createLoginSession, getLoginSession } from './auth'
 
 function parseCookies(req: any) {

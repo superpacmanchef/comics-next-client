@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useRouter } from 'next/router'
 import { useUser } from '../../lib/hooks'
 import MainButton from '../elements/mainButton'
@@ -7,9 +9,14 @@ const TopNav = () => {
     const [user, { mutate }] = useUser()
 
     return (
-        <div className="w-full h-16 py-4 flex flex-row items-center justify-items-center shadow-md bg-black z-30 fixed">
-            <div className="flex flex-1 mx-4 lg:mx-8 items-center">
-                <p className="hover:cursor-pointer w-auto text-2xl text-white">
+        <div className="fixed z-30 flex flex-row items-center w-full h-16 py-4 bg-black shadow-md justify-items-center">
+            <div className="flex items-center flex-1 mx-4 lg:mx-8">
+                <p
+                    className="w-auto text-2xl text-white hover:cursor-pointer"
+                    onClick={() => {
+                        router.push('/')
+                    }}
+                >
                     Comics Thingy
                 </p>
             </div>
@@ -25,9 +32,9 @@ const TopNav = () => {
             ) : (
                 <div className="flex mx-4 lg:mx-8">
                     <MainButton
-                        text="Collection"
+                        text="Profile"
                         onClick={() => {
-                            router.push('/collection')
+                            router.push('/profile')
                         }}
                     />
                 </div>

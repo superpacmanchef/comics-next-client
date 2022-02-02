@@ -3,6 +3,12 @@
 
 import Image from 'next/image'
 import React, { Dispatch, SetStateAction } from 'react'
+import { useCollection, usePull, useUser } from '../../lib/hooks'
+import addComicToCollection from '../../utils/addComicToCollection'
+import addComicToPullList from '../../utils/addComicToPullList'
+import removeComicFromCollection from '../../utils/removeComicFromCollection'
+import removeComicFromPullList from '../../utils/removeComicFromPullList'
+import MainButton from '../elements/mainButton'
 
 type ComicModalProps = {
     comic: Comic_ShortBoxed_SplitTitle_Image | undefined
@@ -12,6 +18,11 @@ type ComicModalProps = {
 
 const ComicModal = (props: ComicModalProps) => {
     const { comic, displayModal, updateDisplayModal } = props
+
+    const [user] = useUser()
+    const [collection, { collectionMutate, collectionLoading }] =
+        useCollection()
+    const [pullList, { pullListMutate, pullListLoading }] = usePull()
 
     if (comic !== undefined) {
         return (
@@ -28,7 +39,7 @@ const ComicModal = (props: ComicModalProps) => {
                 }}
             >
                 <div
-                    className="flex flex-col p-6 bg-gray-700 h-3/4 w-11/12 md:w-3/4 divide-y divide-gray-500 rounded-md"
+                    className="flex flex-col w-11/12 p-6 bg-gray-700 divide-y divide-gray-500 rounded-md h-3/4 md:w-3/4"
                     onClick={(e) => {
                         e.stopPropagation()
                     }}
@@ -53,20 +64,20 @@ const ComicModal = (props: ComicModalProps) => {
                             />
                         </svg>
                     </div>
-                    <div className="flex flex-1 flex-col md:flex-row  mt-4 overflow-auto ">
+                    <div className="flex flex-col flex-1 mt-4 overflow-auto md:flex-row ">
                         <div className="flex flex-1 pt-4 ">
-                            <div className="mx-auto w-3/4 md:w-3/5 p-3">
+                            <div className="w-3/4 p-3 mx-auto md:w-3/5">
                                 <Image
                                     height={960}
                                     width={624}
                                     alt={comic.title}
                                     src={comic.image}
                                     quality={50}
-                                    className="mx-auto w-1/3 md:w-auto"
+                                    className="w-1/3 mx-auto md:w-auto"
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col flex-1 pt-4 w-11/12">
+                        <div className="flex flex-col flex-1 w-11/12 pt-4">
                             <div className="flex flex-col mb-8">
                                 <p className="flex text-lg md:text-2xl">
                                     Title
@@ -110,6 +121,79 @@ const ComicModal = (props: ComicModalProps) => {
                                     {comic.release_date}
                                 </p>
                             </div>
+                            {user && (
+                                <div>
+                                    {collection.collection &&
+                                    !collection.collection
+                                        .map(
+                                            (
+                                                collectionComic: Comic_ShortBoxed_SplitTitle_Image
+                                            ) => {
+                                                if (
+                                                    collectionComic.diamond_id ===
+                                                    comic.diamond_id
+                                                ) {
+                                                    return true
+                                                }
+                                                return false
+                                            }
+                                        )
+                                        .some((el: boolean) => el) ? (
+                                        <MainButton
+                                            styles="my-2 w-full"
+                                            text="Add to Collection"
+                                            onClick={() => {
+                                                addComicToCollection(
+                                                    comic,
+                                                    collectionMutate
+                                                )
+                                            }}
+                                        />
+                                    ) : (
+                                        <MainButton
+                                            styles="my-2 w-full"
+                                            text="Remove From Collection"
+                                            onClick={() => {
+                                                removeComicFromCollection(
+                                                    comic,
+                                                    collectionMutate
+                                                )
+                                            }}
+                                        />
+                                    )}
+                                </div>
+                            )}
+
+                            {user && (
+                                <div>
+                                    {pullList.pullList &&
+                                    !pullList.pullList.includes(
+                                        comic.title.toUpperCase()
+                                    ) ? (
+                                        <MainButton
+                                            styles="my-2 w-full"
+                                            text="Add to Pull List"
+                                            onClick={() => {
+                                                addComicToPullList(
+                                                    comic.title,
+                                                    pullListMutate
+                                                )
+                                            }}
+                                        />
+                                    ) : (
+                                        <MainButton
+                                            styles="my-2 w-full"
+                                            text="Remove From Pull List"
+                                            onClick={() => {
+                                                removeComicFromPullList(
+                                                    comic.title,
+                                                    pullListMutate
+                                                )
+                                            }}
+                                        />
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
