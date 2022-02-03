@@ -3,7 +3,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import TopNav from '../components/Nav/topNav'
 import MainButton from '../components/elements/mainButton'
 import filterComicPublishers from '../utils/filterComicPublishers'
@@ -12,8 +12,6 @@ import ComicComponent from '../components/Comics/comicComponent'
 import filterComicVariants from '../utils/filterComicVariants'
 import comicTitleSplit from '../utils/comicTitleSplit'
 import Layout from '../components/layout'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { getWeekState, setLast } from '../redux/reducers/weekComics'
 
 type HomeProps = {
     weekComics: Comic_ShortBoxed_SplitTitle_Image[]

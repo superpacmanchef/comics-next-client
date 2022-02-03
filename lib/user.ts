@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt'
+import { getDefaultSettings } from 'http2'
 import dao, { searchByUsername, insertUser } from './userDatabase'
 
 const saltRound = 10
@@ -23,6 +24,7 @@ export const findUserByUsername = async (username: string) => {
 }
 
 export const validatePassword = async (user: any, password: any) => {
+    if (!user) return false
     const result = await bcrypt.compare(password, user.password)
     if (result) {
         return true

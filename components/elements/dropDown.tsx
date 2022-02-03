@@ -14,7 +14,7 @@ const DropDown = (props: DropDownProps) => {
             <label htmlFor={name}> {name} </label>
             <select
                 name={name}
-                className="mt-2 px-8 py-2 my-2  text-left rounded-md bg-gray-100"
+                className="px-8 py-2 my-2 mt-2 text-left bg-gray-100 rounded-md"
                 onChange={(val) => {
                     onChange(val)
                 }}

@@ -9,8 +9,6 @@ const handler = nextConnect()
 handler
     .use(auth)
     .use((req: any, res: any, next) => {
-        // handlers after this (PUT, DELETE) all require an authenticated user
-        // This middleware to check if user is authenticated before continuing
         if (!req.user) {
             res.status(401).send('unauthenticated')
         } else {
@@ -18,8 +16,6 @@ handler
         }
     })
     .get((req: any, res: any) => {
-        // You do not generally want to return the whole user object
-        // because it may contain sensitive field such as !!password!! Only return what needed
         const { collection } = req.user
         res.json({ collection: { collection } })
     })

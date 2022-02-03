@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import axios from 'axios'
 import { ServerResponse } from 'http'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import MainButton from '../components/elements/mainButton'
 import TextInput from '../components/elements/textInput'
 import Layout from '../components/layout'
@@ -47,8 +46,8 @@ const Login = () => {
             collectionMutate(userObj.collection)
             router.push('/')
         } else {
-            setErrorMsg('Incorrect username or password. Try better!')
-            alert(errorMsg)
+            setErrorMsg('Incorrect username or password')
+            alert('Incorrect username or password.')
         }
     }
 
@@ -57,8 +56,8 @@ const Login = () => {
             <Head>
                 <title>Comics Thingy</title>
                 <meta
-                    name="A list of all this weeks comic releases"
-                    content="Week Page"
+                    name="Login To add comics to collection "
+                    content="Login"
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -71,7 +70,7 @@ const Login = () => {
                             <TextInput
                                 placeholder="Username"
                                 value={inputUsername}
-                                onChange={(val: any) => {
+                                onChange={(val) => {
                                     updateInputUsername(val.target.value)
                                 }}
                             />

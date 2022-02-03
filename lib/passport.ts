@@ -31,8 +31,6 @@ passport.use(
             // Here you lookup the user in your DB and compare the password/hashed password
             const user = await findUserByUsername(username)
             const pass = await validatePassword(user, password)
-            // Security-wise, if you hashed the password earlier, you must verify it
-            // if (!user || await argon2.verify(user.password, password))
             if (!user || pass === false) {
                 done(null, null)
             } else {

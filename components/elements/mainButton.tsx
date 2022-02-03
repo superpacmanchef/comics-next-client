@@ -7,25 +7,28 @@ type Props = {
     onClick: Function
     styles?: string
     ref?: any
+    disabled?: boolean
 }
 
 const MainButton = (props: Props) => {
-    const { text, onClick, styles, ref } = props
+    const { text, onClick, styles, ref, disabled } = props
     const [styleState, updateStylesState] = useState('')
 
     useEffect(() => {
         const defaultStyles =
-            'rounded-md bg-blue-700 px-4 py-2 hover:bg-blue-600 text-white'
+            'rounded-md bg-blue-700 px-4 py-2 hover:bg-blue-600 disabled:bg-gray-700 text-white'
+
         const removedConflictsStyles = tailwindStyleReplacment(
             defaultStyles,
             styles !== undefined ? styles : ''
         )
 
         updateStylesState(`${styles} ${removedConflictsStyles}`)
-    }, [styles])
+    }, [styles, disabled])
 
     return (
         <button
+            disabled={disabled}
             ref={ref}
             type="button"
             className={styleState}
@@ -38,5 +41,5 @@ const MainButton = (props: Props) => {
     )
 }
 
-MainButton.defaultProps = { styles: '', ref: null }
+MainButton.defaultProps = { styles: '', ref: null, disabled: false }
 export default MainButton

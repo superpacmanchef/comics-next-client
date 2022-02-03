@@ -6,7 +6,7 @@ import MainButton from '../elements/mainButton'
 
 const TopNav = () => {
     const router = useRouter()
-    const [user, { mutate }] = useUser()
+    const [user] = useUser()
 
     return (
         <div className="fixed z-30 flex flex-row items-center w-full h-16 py-4 bg-black shadow-md justify-items-center">

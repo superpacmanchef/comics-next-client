@@ -21,13 +21,17 @@ const ComicComponent = (props: ComicComponentProps) => {
         (pageNo: number) => {
             updateLoading(true)
             updateCurrentPage(pageNo)
+
+            // Get section of array we want to modify
+            // shallow copy of array so that it modifies chosen elements in chosenWeeksComics
             const noPerPage = 10
             const subArray = chosenWeeksComicsFilter.slice(
                 pageNo * noPerPage,
                 pageNo * noPerPage + noPerPage
             )
 
-            const currentPageMetron = subArray.flatMap((comic) => {
+            // Check if image needs to be retrrieved and get it if needed
+            const currentPageImages = subArray.flatMap((comic) => {
                 if (comic.image === 'null' || comic.image === null) {
                     return axios
                         .post('/api/pageComics', { comic })
@@ -37,7 +41,8 @@ const ComicComponent = (props: ComicComponentProps) => {
                 return comic.image
             })
 
-            Promise.all(currentPageMetron).then((comics) => {
+            // Add all images required to corespondign elemnts in array
+            Promise.all(currentPageImages).then((comics) => {
                 const imageComics = subArray.map((comic, index) => {
                     comic.image = comics[index]
                     return comic
@@ -65,7 +70,6 @@ const ComicComponent = (props: ComicComponentProps) => {
                 updateCurrentPage={(val) => pageChange(val)}
                 currentTotalPageNo={currentTotalPageNo}
             />
-
             <ComicGrid comics={currentPageComics} loading={loading} />
             <ComicPageNavigation
                 currentPage={currentPage}

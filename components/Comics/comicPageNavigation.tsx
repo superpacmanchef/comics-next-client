@@ -1,3 +1,4 @@
+import { current } from '@reduxjs/toolkit'
 import DropDown from '../elements/dropDown'
 import MainButton from '../elements/mainButton'
 
@@ -22,24 +23,22 @@ const ComicPageNavigation = (props: ComicPageNavigationProps) => {
                     return <option value={i}>{i + 1}</option>
                 })}
             </DropDown>
-            <div className="flex flex-1 flex-row mx-auto">
+            <div className="flex flex-row flex-1 mx-auto">
                 <MainButton
                     text="Prev"
                     onClick={() => {
-                        if (currentPage > 0) {
-                            updateCurrentPage(currentPage - 1)
-                        }
+                        updateCurrentPage(currentPage - 1)
                     }}
                     styles="px-16 mx-4"
+                    disabled={currentPage === 0}
                 />
                 <MainButton
                     text="Next"
                     onClick={() => {
-                        if (currentPage !== currentTotalPageNo - 1) {
-                            updateCurrentPage(currentPage + 1)
-                        }
+                        updateCurrentPage(currentPage + 1)
                     }}
                     styles="px-16 mx-4"
+                    disabled={currentPage === currentTotalPageNo - 1}
                 />
             </div>
         </div>

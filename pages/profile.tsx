@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
 import { ServerResponse } from 'http'
 import { FaTrashAlt } from 'react-icons/fa'
 import Head from 'next/head'
@@ -33,15 +32,12 @@ const Profile = () => {
         <div className="flex flex-col flex-1 min-h-screen">
             <Head>
                 <title>Comics Thingy</title>
-                <meta
-                    name="A list of all this weeks comic releases"
-                    content="Week Page"
-                />
+                <meta name="User Profilenm nn m 8mn" content="Profile Page" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <TopNav />
             <Layout>
-                {!loading && !collectionLoading ? (
+                {!loading && !collectionLoading && (
                     <div>
                         <div className="flex flex-1">
                             <p className="mx-auto mb-8 text-3xl">{`${user.username}'s Profile`}</p>
@@ -70,13 +66,13 @@ const Profile = () => {
                                 <div className="flex flex-col justify-center flex-1">
                                     {pullList.pullList.map(
                                         (comicTitle: string) => (
-                                            <div className="flex flex-row justify-center flex-1 mx-auto">
-                                                <p className="my-2 text-3xl text-left text-white">
+                                            <div className="flex flex-row justify-center flex-1 w-1/3 mx-auto my-2 text-justify w-8/10">
+                                                <p className="flex-1 w-full my-2 text-3xl text-white">
                                                     {comicTitle}
                                                 </p>
                                                 <FaTrashAlt
                                                     size={30}
-                                                    className="my-auto msl-8 hover:text-red-600 hover:cursor-pointer"
+                                                    className="flex my-auto ml-8 msl-8 hover:text-red-600 hover:cursor-pointer"
                                                     onClick={() => {
                                                         removeComicFromPullList(
                                                             comicTitle,
@@ -91,8 +87,6 @@ const Profile = () => {
                             )}
                         </div>
                     </div>
-                ) : (
-                    <></>
                 )}
             </Layout>
         </div>
