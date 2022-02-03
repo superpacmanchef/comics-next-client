@@ -21,10 +21,9 @@ export async function getServerSideProps(context: any) {
 }
 
 const Profile = () => {
-    const [user, { mutate, loading }] = useUser()
-    const [collection, { collectionMutate, collectionLoading }] =
-        useCollection()
-    const [pullList, { pullListMutate, pullListLoading }] = usePull()
+    const [user, { loading }] = useUser()
+    const [collection, { collectionLoading }] = useCollection()
+    const [pullList, { pullListMutate }] = usePull()
 
     const [pageToShow, updatepageToShow] = useState('Collection')
 

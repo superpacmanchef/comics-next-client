@@ -26,7 +26,6 @@ const Login = () => {
 
     const [inputUsername, updateInputUsername] = useState('')
     const [inputPassword, updateInputPassword] = useState('')
-    const [errorMsg, setErrorMsg] = useState('')
 
     const router = useRouter()
 
@@ -46,7 +45,6 @@ const Login = () => {
             collectionMutate(userObj.collection)
             router.push('/')
         } else {
-            setErrorMsg('Incorrect username or password')
             alert('Incorrect username or password.')
         }
     }

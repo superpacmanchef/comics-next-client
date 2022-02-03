@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import nextConnect from 'next-connect'
 import auth from '../../middleware/auth'
-import { createUser } from '../../lib/user'
 import { insertCollection, removeCollection } from '../../lib/userDatabase'
 
 const handler = nextConnect()

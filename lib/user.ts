@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt'
-import { getDefaultSettings } from 'http2'
-import dao, { searchByUsername, insertUser } from './userDatabase'
+import { searchByUsername, insertUser } from './userDatabase'
 
 const saltRound = 10
 

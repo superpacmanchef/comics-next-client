@@ -1,4 +1,4 @@
-import { Db, MongoClient, ObjectId } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 
 const connect = async () => {
     if (process.env.MONGO_LINK) {
