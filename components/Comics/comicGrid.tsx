@@ -18,10 +18,10 @@ const ComicGrid = (props: ComicsGridType) => {
     return (
         <div>
             {loading ? (
-                <div className="grid mt-4 space-x-0 md:grid-cols-3 lg:grid-cols-5   grid-cols-2">
+                <div className="grid grid-cols-2 mt-4 space-x-0 sm:grid-cols-3 lg:grid-cols-5">
                     {[...Array(10)].map(() => {
                         return (
-                            <div className="my-2 md:my-5 px-2">
+                            <div className="px-2 my-2 md:my-5">
                                 <LoadingComicTile />{' '}
                             </div>
                         )
@@ -34,11 +34,11 @@ const ComicGrid = (props: ComicsGridType) => {
                         updateDisplayModal={updateDisplayModal}
                         comic={focusComic}
                     />
-                    <div className="grid mt-4 space-x-0 md:grid-cols-3 lg:grid-cols-5 grid-cols-2">
-                        {comics &&
-                            comics.map((comic, index) => {
+                    {comics && comics.length > 0 ? (
+                        <div className="grid grid-cols-2 mt-4 space-x-0 sm:grid-cols-3 lg:grid-cols-5">
+                            {comics.map((comic, index) => {
                                 return (
-                                    <div className="my-2 md:my-5 px-2">
+                                    <div className="px-2 my-2 md:my-5">
                                         <ComicTile
                                             title={comic.title}
                                             issue_no={comic.issue_no}
@@ -53,7 +53,12 @@ const ComicGrid = (props: ComicsGridType) => {
                                     </div>
                                 )
                             })}
-                    </div>
+                        </div>
+                    ) : (
+                        <div className="w-full mx-auto text-2xl text-center">
+                            <p>No Comics Found</p>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

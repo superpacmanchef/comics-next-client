@@ -127,7 +127,7 @@ export const removePull = async (id: string, comicname: string) => {
 export const searchByUsername = (username: string) => {
     return db
         .collection('users')
-        .findOne({ username })
+        .findOne({ email: username })
         .then((entries) => {
             return entries
         })

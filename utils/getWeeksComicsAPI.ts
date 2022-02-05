@@ -1,5 +1,7 @@
 import axios from 'axios'
 
 export default async (currentChosenWeek: number) => {
-    return axios.get(`/api/weekComics?week=${currentChosenWeek}`)
+    return axios
+        .get(`/api/weekComics?week=${currentChosenWeek}`)
+        .catch((err) => console.error(err))
 }

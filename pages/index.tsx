@@ -12,6 +12,7 @@ import ComicComponent from '../components/Comics/comicComponent'
 import filterComicVariants from '../utils/filterComicVariants'
 import comicTitleSplit from '../utils/comicTitleSplit'
 import Layout from '../components/layout'
+import { usePull, useUser } from '../lib/hooks'
 
 type HomeProps = {
     weekComics: Comic_ShortBoxed_SplitTitle_Image[]
@@ -51,11 +52,14 @@ const Home: NextPage<HomeProps> = (props) => {
         Comic_ShortBoxed_SplitTitle_Image[]
     >([])
     const [chosenWeeksComicsFilter, updateChosenWeeksComicsFilter] = useState<
-        Comic_ShortBoxed_SplitTitle_Image[]
-    >([])
+        Comic_ShortBoxed_SplitTitle_Image[] | null
+    >(null)
     const [currentChosenWeek, updateCurrentChosenWeek] = useState(1)
     const [lastChosenWeek, updateLastChosenWeek] = useState<number>(1)
     const [currentPublisher, updateCurrentPublisher] = useState('ALL')
+
+    const [user] = useUser()
+    const [pullList] = usePull()
 
     const getWeeksComics = () => {
         if (currentChosenWeek !== lastChosenWeek) {
@@ -72,7 +76,7 @@ const Home: NextPage<HomeProps> = (props) => {
                     const filteredChosenWeeksComics = filterComicPublishers(
                         weekArrayWithImage,
                         currentPublisher,
-                        []
+                        user ? pullList : { pullList: [] }
                     )
                     updateChosenWeeksComicsFilter(filteredChosenWeeksComics)
                 })
@@ -81,7 +85,7 @@ const Home: NextPage<HomeProps> = (props) => {
             const filteredChosenWeeksComics = filterComicPublishers(
                 chosenWeeksComics,
                 currentPublisher,
-                []
+                pullList
             )
 
             updateChosenWeeksComicsFilter(filteredChosenWeeksComics)
@@ -93,13 +97,13 @@ const Home: NextPage<HomeProps> = (props) => {
         const filteredChosenWeeksComics = filterComicPublishers(
             weekComics,
             'ALL',
-            []
+            user ? pullList : { pullList: [] }
         )
         updateChosenWeeksComicsFilter(filteredChosenWeeksComics)
-    }, [weekComics])
+    }, [pullList, user, weekComics])
 
     return (
-        <div className="flex flex-col flex-1 h-full">
+        <div className="flex flex-col flex-1 min-w-full min-h-full bg-gray-600">
             <Head>
                 <title>Comics Thingy</title>
                 <meta
@@ -111,7 +115,7 @@ const Home: NextPage<HomeProps> = (props) => {
             <TopNav />
 
             <Layout>
-                <div className="flex flex-col mb-4 md:w-1/4">
+                <main className="flex flex-col mb-4 md:w-1/4">
                     <div className="flex flex-row justify-around">
                         <DropDown
                             name="Week"
@@ -141,6 +145,7 @@ const Home: NextPage<HomeProps> = (props) => {
                                 Dark Horse
                             </option>
                             <option value="IDW COMICS">IDW</option>
+                            {user && <option value="PULL">PULL LIST</option>}
                         </DropDown>
                     </div>
                     <MainButton
@@ -150,7 +155,7 @@ const Home: NextPage<HomeProps> = (props) => {
                         }}
                         styles="w-3/5 mx-auto mt-4"
                     />
-                </div>
+                </main>
 
                 <ComicComponent
                     chosenWeeksComicsFilter={chosenWeeksComicsFilter}

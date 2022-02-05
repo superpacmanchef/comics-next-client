@@ -2,40 +2,40 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import Image from 'next/image'
+import { FaStar } from 'react-icons/fa'
+import { usePull } from '../../lib/hooks'
 
 type ComicTileProps = {
     title: string
-    img?: string
+    img: string
     issue_no: string
     updateFocusComic: () => void
 }
 
 const ComicTile = (props: ComicTileProps) => {
-    const {
-        title,
-        img = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd.newsweek.com%2Fen%2Ffull%2F1602236%2Fgoogle.jpg&f=1&nofb=1',
-        issue_no,
-        updateFocusComic,
-    } = props
+    const { title, img, issue_no, updateFocusComic } = props
 
-    let img2 = img
-
-    if (img === null || img === 'null') {
-        console.log(img)
-        img2 =
-            'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd.newsweek.com%2Fen%2Ffull%2F1602236%2Fgoogle.jpg&f=1&nofb=1'
-    }
+    const [pullList] = usePull()
 
     return (
-        <div className="flex flex-col h-full text-center bg-gray-800 rounded-md shadow-lg shadow-gray-500">
+        <div
+            className={`flex flex-col h-full text-center bg-gray-800  shadow-gray-900  rounded-md shadow-lg `}
+        >
+            {pullList.pullList &&
+                pullList.pullList.includes(title.toUpperCase()) && (
+                    <FaStar
+                        className="absolute z-30 text-4xl md:text-5xl"
+                        fill="black"
+                    />
+                )}
             <div className="flex w-5/6 mx-auto mt-6 transition duration-200 hover:cursor-pointer hover:scale-110">
                 <Image
                     alt={`${title} #${issue_no}`}
                     height={960}
                     placeholder="blur"
-                    blurDataURL={img2}
+                    blurDataURL={img}
                     width={624}
-                    src={img2}
+                    src={img}
                     onClick={() => {
                         updateFocusComic()
                     }}
@@ -47,10 +47,6 @@ const ComicTile = (props: ComicTileProps) => {
             </p>
         </div>
     )
-}
-
-ComicTile.defaultProps = {
-    img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd.newsweek.com%2Fen%2Ffull%2F1602236%2Fgoogle.jpg&f=1&nofb=1',
 }
 
 export default ComicTile

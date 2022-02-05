@@ -10,7 +10,7 @@ handler
     .use((req: any, res: any, next) => {
         // This middleware to check if user is authenticated before continuing
         if (!req.user) {
-            res.status(401).send('unauthenticated')
+            res.status(401).json([])
         } else {
             next()
         }

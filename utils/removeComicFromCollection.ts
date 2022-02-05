@@ -15,9 +15,9 @@ export default (
             },
         })
         .then((res) => {
-            console.log(res.data.collection)
             if (res.data.collection) {
                 collectionMutate(res.data.collection)
             }
         })
+        .catch((err) => console.error(err))
 }

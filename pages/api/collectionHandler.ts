@@ -9,7 +9,7 @@ handler
     .use(auth)
     .use((req: any, res: any, next) => {
         if (!req.user) {
-            res.status(401).send('unauthenticated')
+            res.status(200).json([])
         } else {
             next()
         }
@@ -44,10 +44,5 @@ handler
             res.status(500)
         }
     })
-// .put((req: any, res: any) => {
-//     const { name } = req.body
-//     const user = updateUserByUsername(req, req.user.username, { name })
-//     res.json({ user })
-// })
 
 export default handler

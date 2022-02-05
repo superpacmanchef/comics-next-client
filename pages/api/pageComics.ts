@@ -1,10 +1,9 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
+import nextConnect from 'next-connect'
 
-export const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
+const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
     const idRes = await axios.get<Metron_ID_Res>(
-        `https://metron.cloud/api/issue/?number=${comic.issue_no}&series_name=${comic.title}`,
+        `https://metron.cloud/api/issue/?number=${comic.issue_no}&series_name=${comic.title}&store_date=${comic.release_date}&sku=${comic.diamond_id}`,
         {
             headers: {
                 Authorization: `${process.env.METRON_BASIC_KEY}`,
@@ -36,22 +35,19 @@ export const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
     return data.data.results[0].image.medium_url
 }
 
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse<string | null>
-) {
-    if (req.method === 'POST') {
-        const { comic } = req.body as { comic: Comic_ShortBoxed_SplitTitle }
+const handler = nextConnect()
 
-        try {
-            const data = await getPageData(comic)
+handler.post(async (req: any, res: any) => {
+    const { comic } = req.body as { comic: Comic_ShortBoxed_SplitTitle }
 
-            res.status(200).json(data)
-            res.end()
-        } catch (err) {
-            res.status(401).end()
-        }
-    } else {
-        res.status(405).end()
+    try {
+        const data = await getPageData(comic)
+
+        res.status(200).json(data)
+        res.end()
+    } catch (err) {
+        res.status(500)
     }
-}
+})
+
+export default handler

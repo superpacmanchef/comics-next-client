@@ -20,9 +20,8 @@ const ComicModal = (props: ComicModalProps) => {
     const { comic, displayModal, updateDisplayModal } = props
 
     const [user] = useUser()
-    const [collection, { collectionMutate, collectionLoading }] =
-        useCollection()
-    const [pullList, { pullListMutate, pullListLoading }] = usePull()
+    const [collection, { collectionMutate }] = useCollection()
+    const [pullList, { pullListMutate }] = usePull()
 
     if (comic !== undefined) {
         return (
@@ -32,9 +31,6 @@ const ComicModal = (props: ComicModalProps) => {
                 }`}
                 onClick={(e) => {
                     e.stopPropagation()
-                    updateDisplayModal(false)
-                }}
-                onKeyPress={() => {
                     updateDisplayModal(false)
                 }}
             >
