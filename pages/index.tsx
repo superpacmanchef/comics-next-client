@@ -96,11 +96,12 @@ const Home: NextPage<HomeProps> = (props) => {
         updateChosenWeeksComics(weekComics)
         const filteredChosenWeeksComics = filterComicPublishers(
             weekComics,
-            'ALL',
+            currentPublisher,
             user ? pullList : { pullList: [] }
         )
         updateChosenWeeksComicsFilter(filteredChosenWeeksComics)
-    }, [pullList, user, weekComics])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPublisher, user, weekComics])
 
     return (
         <div className="flex flex-col flex-1 min-w-full min-h-full bg-gray-600">
