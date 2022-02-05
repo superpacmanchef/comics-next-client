@@ -1,4 +1,3 @@
-import { current } from '@reduxjs/toolkit'
 import DropDown from '../elements/dropDown'
 import MainButton from '../elements/mainButton'
 
@@ -11,35 +10,39 @@ type ComicPageNavigationProps = {
 const ComicPageNavigation = (props: ComicPageNavigationProps) => {
     const { currentPage, updateCurrentPage, currentTotalPageNo } = props
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-4">
             <DropDown
                 onChange={(val) => {
                     updateCurrentPage(parseInt(val.target.value, 10))
                 }}
                 value={currentPage}
-                name="Current Page"
+                name=""
             >
                 {[...Array(currentTotalPageNo)].map((e, i) => {
                     return <option value={i}>{i + 1}</option>
                 })}
             </DropDown>
-            <div className="flex flex-row flex-1 mx-auto">
-                <MainButton
-                    text="Prev"
-                    onClick={() => {
-                        updateCurrentPage(currentPage - 1)
-                    }}
-                    styles="px-16 mx-4"
-                    disabled={currentPage === 0}
-                />
-                <MainButton
-                    text="Next"
-                    onClick={() => {
-                        updateCurrentPage(currentPage + 1)
-                    }}
-                    styles="px-16 mx-4"
-                    disabled={currentPage === currentTotalPageNo - 1}
-                />
+            <div className="flex flex-row justify-center">
+                <div className="w-1/3 px-4 lg:w-40">
+                    <MainButton
+                        text="Prev"
+                        onClick={() => {
+                            updateCurrentPage(currentPage - 1)
+                        }}
+                        styles="w-full"
+                        disabled={currentPage === 0}
+                    />
+                </div>
+                <div className="w-1/3 px-4 lg:w-40">
+                    <MainButton
+                        text="Next"
+                        onClick={() => {
+                            updateCurrentPage(currentPage + 1)
+                        }}
+                        styles="w-full"
+                        disabled={currentPage === currentTotalPageNo - 1}
+                    />
+                </div>
             </div>
         </div>
     )
