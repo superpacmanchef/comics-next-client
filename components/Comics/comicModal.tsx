@@ -91,14 +91,6 @@ const ComicModal = (props: ComicModalProps) => {
                                     {comic.description}
                                 </p>
                             </div>
-                            <div className="flex flex-col mb-8">
-                                <p className="flex text-lg md:text-2xl">
-                                    Publisher
-                                </p>
-                                <p className="flex text-md md:text-xl">
-                                    {comic.publisher}
-                                </p>
-                            </div>
                             {comic.creators && (
                                 <div className="flex flex-col mb-8">
                                     <p className="flex text-lg md:text-2xl">
@@ -109,6 +101,14 @@ const ComicModal = (props: ComicModalProps) => {
                                     </p>
                                 </div>
                             )}
+                            <div className="flex flex-col mb-8">
+                                <p className="flex text-lg md:text-2xl">
+                                    Publisher
+                                </p>
+                                <p className="flex text-md md:text-xl">
+                                    {comic.publisher}
+                                </p>
+                            </div>
                             <div className="flex flex-col mb-8">
                                 <p className="flex text-lg md:text-2xl">
                                     Release Date

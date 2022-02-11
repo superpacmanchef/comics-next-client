@@ -101,7 +101,7 @@ const Home: NextPage<HomeProps> = (props) => {
         )
         updateChosenWeeksComicsFilter(filteredChosenWeeksComics)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPublisher, user, weekComics])
+    }, [user, weekComics])
 
     return (
         <div className="flex flex-col flex-1 min-w-full min-h-full bg-gray-600">

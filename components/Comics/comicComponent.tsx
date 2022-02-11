@@ -72,7 +72,8 @@ const ComicComponent = (props: ComicComponentProps) => {
             )
             pageChange(0)
         }
-    }, [chosenWeeksComicsFilter, pageChange])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [chosenWeeksComicsFilter])
 
     return (
         <div>
