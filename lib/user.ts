@@ -1,11 +1,12 @@
 import bcrypt from 'bcrypt'
-import { searchByUsername, insertUser } from './userDatabase'
+import { emit } from 'process'
+import { insertUser, searchByEmail } from './userDatabase'
 
 const saltRound = 10
 
 // eslint-disable-next-line import/prefer-default-export
 export const userExist = async (username: string) => {
-    return searchByUsername(username).then((entries) => {
+    return searchByEmail(username).then((entries) => {
         if (entries !== null) {
             return true
         }
@@ -13,8 +14,8 @@ export const userExist = async (username: string) => {
     })
 }
 
-export const findUserByUsername = async (username: string) => {
-    return searchByUsername(username).then((entries) => {
+export const findUserByEmail = async (username: string) => {
+    return searchByEmail(username).then((entries) => {
         if (entries != null) {
             return entries
         }
@@ -40,15 +41,15 @@ export const createUser = (
     if (password !== passwordRepeat) {
         return false
     }
-    return userExist(username).then((exist) => {
+    return userExist(email).then((exist) => {
         if (!exist) {
-            return bcrypt.genSalt(saltRound, (err1, salt) => {
+            bcrypt.genSalt(saltRound, (err1, salt) => {
                 bcrypt.hash(password, saltRound, (err2, hash) => {
                     insertUser(username, email, hash)
-                    return exist
                 })
             })
+            return true
         }
-        return exist
+        return false
     })
 }

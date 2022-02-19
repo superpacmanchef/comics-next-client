@@ -2,14 +2,13 @@
 import { ServerResponse } from 'http'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import passport from 'passport'
 import { useState } from 'react'
 import ButtonSwitch from '../components/elements/buttinSwitch'
 import MainButton from '../components/elements/mainButton'
 import TextInput from '../components/elements/textInput'
 import Layout from '../components/layout'
 import TopNav from '../components/Nav/topNav'
-import { useCollection, useUser } from '../lib/hooks'
+import { useCollection, usePull, useUser } from '../lib/hooks'
 import auth from '../middleware/auth'
 
 // TODO: Theres gotta be a better way to do this?
@@ -25,6 +24,7 @@ export async function getServerSideProps(context: any) {
 const Login = () => {
     const [user, { mutate }] = useUser()
     const [collection, { collectionMutate }] = useCollection()
+    const [pullList, { pullListMutate }] = usePull()
 
     const [inputUsername, updateInputUsername] = useState('')
     const [inputPassword, updateInputPassword] = useState('')
@@ -49,6 +49,7 @@ const Login = () => {
             const userObj = await res.json()
             mutate(userObj)
             collectionMutate(userObj.collection)
+            pullListMutate(userObj.pullList)
             router.push('/')
         } else {
             alert('Incorrect username or password.')
@@ -70,9 +71,9 @@ const Login = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
             })
-            const json = await res.json()
-
-            if (res.status !== 200 || !json.success) {
+            if (res.status === 200) {
+                logUser()
+            } else {
                 alert('SUMINIT WENT WRONG')
             }
         }
@@ -139,7 +140,6 @@ const Login = () => {
                         </>
                     ) : (
                         <>
-                            {' '}
                             <p className="mx-auto mb-4 text-3xl">Register</p>
                             <div className="my-auto">
                                 <div className="flex flex-col mb-8">

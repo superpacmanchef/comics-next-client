@@ -23,6 +23,7 @@ const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
         )
         return comicData.data.image
     }
+
     const data = await axios.get('https://comicvine.gamespot.com/api/search/', {
         params: {
             api_key: process.env.COMIC_VINE_KEY,

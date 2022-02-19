@@ -9,7 +9,7 @@ const TopNav = () => {
     const [user] = useUser()
 
     return (
-        <div className="fixed z-30 flex flex-row items-center w-full h-16 py-4 bg-black shadow-md justify-items-center">
+        <div className="fixed z-30 flex flex-row items-center w-full h-16 px-1 py-4 bg-black shadow-md md:px-4 justify-items-center">
             <div className="flex items-center flex-1 mx-4 lg:mx-8">
                 <p
                     className="w-auto text-2xl text-white hover:cursor-pointer"

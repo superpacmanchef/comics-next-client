@@ -124,7 +124,7 @@ export const removePull = async (id: string, comicname: string) => {
     }
 }
 
-export const searchByUsername = (username: string) => {
+export const searchByEmail = (username: string) => {
     return db
         .collection('users')
         .findOne({ email: username })
@@ -147,7 +147,6 @@ export const insertPull = async (id: string, comic: string) => {
                 {}
             )
         const user = await searchByID(id)
-        console.log(user)
         if (user) {
             return user.pullList
         }

@@ -22,7 +22,9 @@ const ComicTile = (props: ComicTileProps) => {
             className={`flex flex-col h-full text-center bg-gray-800  shadow-gray-900  rounded-md shadow-lg `}
         >
             {pullList.pullList &&
-                pullList.pullList.includes(title.toUpperCase()) && (
+                pullList.pullList.includes(
+                    title.toUpperCase().replace('THE ', '')
+                ) && (
                     <FaStar
                         className="absolute z-30 text-4xl md:text-5xl"
                         fill="black"

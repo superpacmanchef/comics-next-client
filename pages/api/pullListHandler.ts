@@ -23,7 +23,7 @@ handler
         const { comic } = req.body
 
         try {
-            const pullList = await insertPull(req.user._id, comic)
+            const pullList = await insertPull(req.user._id, comic.toUpperCase())
 
             if (pullList) {
                 res.status(200).json({

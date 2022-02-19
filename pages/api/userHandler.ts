@@ -8,7 +8,6 @@ handler
     .use(auth)
     .post(async (req: any, res: any) => {
         const { email, username, password, passwordRepeat } = req.body
-
         try {
             const resp = await createUser(
                 username,
@@ -22,7 +21,7 @@ handler
                     : { success: false, message: 'Error' }
             )
         } catch (err) {
-            res.status(500)
+            res.sendStatus(500)
         }
     })
     .use((req: any, res: any, next) => {

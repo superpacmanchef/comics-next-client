@@ -5,16 +5,17 @@ type Props = {
     styles?: string
     ref?: any
     disabled?: boolean
+    submitFlag?: boolean
 }
 
 const MainButton = (props: Props) => {
-    const { text, onClick, styles, ref, disabled } = props
+    const { text, onClick, styles, ref, disabled, submitFlag } = props
 
     return (
         <button
             disabled={disabled}
             ref={ref}
-            type="button"
+            type={submitFlag ? 'submit' : 'button'}
             className={`bg-blue-700 hover:bg-blue-600 rounded-md px-4 py-2 disabled:bg-gray-500 text-white ${styles} `}
             onClick={() => {
                 onClick()
@@ -25,5 +26,10 @@ const MainButton = (props: Props) => {
     )
 }
 
-MainButton.defaultProps = { styles: '', ref: null, disabled: false }
+MainButton.defaultProps = {
+    styles: '',
+    ref: null,
+    disabled: false,
+    submitFlag: false,
+}
 export default MainButton
