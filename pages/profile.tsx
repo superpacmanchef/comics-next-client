@@ -31,14 +31,15 @@ const AddComicModal = (props: any) => {
     const [collection, { collectionMutate }] = useCollection()
 
     const [addComicTitle, updateAddComicTitle] = useState('')
-    const [addComicIssueNumber, updateComicIssueNumber] = useState('')
-    const [addComicDate, updateAddComicDate] = useState<Date | null>(new Date())
+    const [addComicIssueNumber, updateAddComicIssueNumber] = useState('')
+    const [addComicDate, updateAddComicDate] = useState<Date | null>(null)
     const [addComicID, updateAddComicID] = useState('')
     const [addComicUPC, updateAddComicUPC] = useState('')
 
     const searchComic = async () => {
         let coverMonth = ''
         let coverYear = ''
+
         if (addComicDate) {
             coverMonth = `${addComicDate.getMonth() + 1}`
             coverYear = `${addComicDate.getFullYear()}`
@@ -62,7 +63,7 @@ const AddComicModal = (props: any) => {
             updateAddComicID('')
             updateAddComicUPC('')
             updateAddComicDate(new Date())
-            updateComicIssueNumber('')
+            updateAddComicIssueNumber('')
             updateAddComicTitle('')
         } catch (err) {
             console.log(err)
@@ -134,7 +135,7 @@ const AddComicModal = (props: any) => {
                                         placeholder="7 *"
                                         value={addComicIssueNumber}
                                         onChange={(val) => {
-                                            updateComicIssueNumber(
+                                            updateAddComicIssueNumber(
                                                 val.target.value
                                             )
                                         }}

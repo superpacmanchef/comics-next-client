@@ -31,6 +31,8 @@ const getComicData = async (
         link += `&upc=${comicUPC}`
     }
 
+    console.log(link)
+
     const idRes = await axios.get<Metron_ID_Res>(link, {
         headers: {
             Authorization: `${process.env.METRON_BASIC_KEY}`,
