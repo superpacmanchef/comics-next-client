@@ -36,6 +36,12 @@ const Login = () => {
     const router = useRouter()
 
     const logUser = async () => {
+        const mailformat =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (!inputEmail.match(mailformat)) {
+            alert('Valid email address!')
+            return
+        }
         const body = {
             username: inputEmail,
             password: inputPassword,
@@ -57,6 +63,12 @@ const Login = () => {
     }
 
     const regUser = async () => {
+        const mailformat =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (!inputEmail.match(mailformat)) {
+            alert('Valid email address!')
+            return
+        }
         if (inputPassword !== inputPasswordRepeat) {
             alert('Passwords dont match')
         } else {

@@ -16,8 +16,7 @@ const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
             `https://metron.cloud/api/issue/${comicID}`,
             {
                 headers: {
-                    Authorization:
-                        'BASIC c3VwZXJwYWNtYW5jaGVmOktOSE14TUM0Sm1lUHhrSA==',
+                    Authorization: `${process.env.METRON_BASIC_KEY}`,
                 },
             }
         )

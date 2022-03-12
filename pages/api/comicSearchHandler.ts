@@ -2,7 +2,6 @@
 import axios from 'axios'
 import nextConnect from 'next-connect'
 import auth from '../../middleware/auth'
-import { insertCollection, removeCollection } from '../../lib/userDatabase'
 
 const handler = nextConnect()
 
@@ -31,8 +30,6 @@ const getComicData = async (
         link += `&upc=${comicUPC}`
     }
 
-    console.log(link)
-
     const idRes = await axios.get<Metron_ID_Res>(link, {
         headers: {
             Authorization: `${process.env.METRON_BASIC_KEY}`,
@@ -45,8 +42,7 @@ const getComicData = async (
             `https://metron.cloud/api/issue/${metronComicID}`,
             {
                 headers: {
-                    Authorization:
-                        'BASIC c3VwZXJwYWNtYW5jaGVmOktOSE14TUM0Sm1lUHhrSA==',
+                    Authorization: `${process.env.METRON_BASIC_KEY}`,
                 },
             }
         )
@@ -84,8 +80,7 @@ handler
                 comicUPC
             )
             if (data === null) {
-                res.status(500)
-                res.end()
+                res.status(200).json({})
             } else {
                 const comicData: Comic_ShortBoxed_SplitTitle_Image = {
                     title: data.series.name,
