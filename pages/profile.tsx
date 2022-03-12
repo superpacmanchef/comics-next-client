@@ -37,17 +37,29 @@ const AddComicModal = (props: any) => {
     const [addComicUPC, updateAddComicUPC] = useState('')
 
     const searchComic = async () => {
+        if (addComicUPC !== '' && addComicUPC.length < 17) {
+            alert('UPC code length < 17')
+            return
+        }
+        let upcCopy = addComicUPC.slice(0, addComicUPC.length - 5)
+
+        const t = 3 - addComicIssueNumber.length
+        let y = `11`
+
+        if (t === 2) {
+            y = `00${addComicIssueNumber}${y}`
+        } else {
+            y = `0${addComicIssueNumber}${y}`
+        }
+
+        upcCopy += y
+
         let coverMonth = ''
         let coverYear = ''
 
         if (addComicDate) {
             coverMonth = `${addComicDate.getMonth() + 1}`
             coverYear = `${addComicDate.getFullYear()}`
-        }
-
-        if (addComicUPC !== '' && addComicUPC.length < 17) {
-            alert('UPC code length < 17')
-            return
         }
 
         try {
@@ -57,7 +69,7 @@ const AddComicModal = (props: any) => {
                 comicMonth: coverMonth,
                 comicYear: coverYear,
                 comicID: addComicID,
-                comicUPC: addComicUPC,
+                comicUPC: upcCopy,
             })
             await addComicToCollection(data.data, collectionMutate)
             updateAddComicID('')
@@ -65,6 +77,7 @@ const AddComicModal = (props: any) => {
             updateAddComicDate(new Date())
             updateAddComicIssueNumber('')
             updateAddComicTitle('')
+            updateDisplayModal(false)
         } catch (err) {
             console.log(err)
 
