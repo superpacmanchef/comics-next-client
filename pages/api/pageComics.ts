@@ -10,6 +10,7 @@ const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
             },
         }
     )
+
     if (idRes.data.count > 0) {
         const comicID = idRes.data.results[0].id
         const comicData = await axios.get<Metron_Comics>(
@@ -25,7 +26,7 @@ const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
 
     const data = await axios.get('https://comicvine.gamespot.com/api/search/', {
         params: {
-            api_key: process.env.COMIC_VINE_KEY,
+            api_key: `${process.env.COMIC_VINE_KEY}`,
             query: `${comic.title} ${comic.issue_no} ${comic.diamond_id} ${comic.release_date} comic`,
             format: 'json',
             resource_type: 'issue',

@@ -40,7 +40,11 @@ const ComicPageNavigation = (props: ComicPageNavigationProps) => {
                             updateCurrentPage(currentPage + 1)
                         }}
                         styles="w-full"
-                        disabled={currentPage === currentTotalPageNo - 1}
+                        disabled={
+                            currentPage === currentTotalPageNo - 1 ||
+                            currentTotalPageNo === 0 ||
+                            currentTotalPageNo === 1
+                        }
                     />
                 </div>
             </div>
