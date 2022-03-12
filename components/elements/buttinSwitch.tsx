@@ -14,7 +14,7 @@ const SwitchButton = (props: any) => {
             type="button"
             className={`${
                 !props.active
-                    ? 'bg-blue-700 hover:bg-blue-600'
+                    ? 'bg-red-600 hover:bg-red-700'
                     : 'bg-gray-500 hover:bg-slate-500'
             } rounded-md px-4 py-2 text-white ${props.styles}`}
             onClick={() => {

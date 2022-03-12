@@ -16,7 +16,7 @@ const MainButton = (props: Props) => {
             disabled={disabled}
             ref={ref}
             type={submitFlag ? 'submit' : 'button'}
-            className={`bg-blue-700 hover:bg-blue-600 rounded-md px-4 py-2 disabled:bg-gray-500 text-white ${styles} `}
+            className={`bg-red-600 hover:bg-red-700 rounded-md px-4 py-2 disabled:bg-gray-500 text-white ${styles} `}
             onClick={() => {
                 onClick()
             }}
