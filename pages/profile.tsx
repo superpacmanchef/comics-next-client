@@ -39,18 +39,20 @@ const AddComicModal = (props: any) => {
             alert('UPC code length < 17')
             return
         }
+
         let upcCopy = addComicUPC.slice(0, addComicUPC.length - 5)
+        if (addComicUPC) {
+            const t = 3 - addComicIssueNumber.length
+            let y = `11`
 
-        const t = 3 - addComicIssueNumber.length
-        let y = `11`
+            if (t === 2) {
+                y = `00${addComicIssueNumber}${y}`
+            } else {
+                y = `0${addComicIssueNumber}${y}`
+            }
 
-        if (t === 2) {
-            y = `00${addComicIssueNumber}${y}`
-        } else {
-            y = `0${addComicIssueNumber}${y}`
+            upcCopy += y
         }
-
-        upcCopy += y
 
         let coverMonth = ''
         let coverYear = ''

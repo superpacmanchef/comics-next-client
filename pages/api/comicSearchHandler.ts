@@ -36,7 +36,7 @@ const getComicData = async (
         },
     })
 
-    console.log(idRes.data)
+    console.log(link)
 
     if (idRes.data.count > 0) {
         const metronComicID = idRes.data.results[0].id
