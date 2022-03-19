@@ -36,6 +36,8 @@ const getComicData = async (
         },
     })
 
+    console.log(idRes.data)
+
     if (idRes.data.count > 0) {
         const metronComicID = idRes.data.results[0].id
         const comicData = await axios.get<Metron_Comics>(
@@ -80,7 +82,7 @@ handler
                 comicUPC
             )
             if (data === null) {
-                res.status(200).json({})
+                res.status(200).json(null)
             } else {
                 const comicData: Comic_ShortBoxed_SplitTitle_Image = {
                     title: data.series.name,

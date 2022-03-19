@@ -1,7 +1,7 @@
 type Props = {
     text: string
     // eslint-disable-next-line @typescript-eslint/ban-types
-    onClick: Function
+    onClick: () => void
     styles?: string
     ref?: any
     disabled?: boolean
@@ -18,6 +18,9 @@ const MainButton = (props: Props) => {
             type={submitFlag ? 'submit' : 'button'}
             className={`bg-red-600 hover:bg-red-700 rounded-md px-4 py-2 disabled:bg-gray-500 text-white ${styles} `}
             onClick={() => {
+                onClick()
+            }}
+            onKeyPress={() => {
                 onClick()
             }}
         >

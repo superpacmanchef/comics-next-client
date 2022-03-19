@@ -21,6 +21,7 @@ Create a .env file with the following variables :
 -   COMIC_VINE_KEY - place your ComicVine api key here
 -   METRON_BASIC_KEY - place "Basic " + your Metron API key here
 -   MONGOLINK - place your link to your mongo database here
+-   SESSION_SECRET - place for your cookie session secret
 
 ```bash
 yarn install

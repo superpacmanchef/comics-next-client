@@ -2,27 +2,27 @@ import axios from 'axios'
 import nextConnect from 'next-connect'
 
 const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
-    const idRes = await axios.get<Metron_ID_Res>(
-        `https://metron.cloud/api/issue/?number=${comic.issue_no}&series_name=${comic.title}&store_date=${comic.release_date}&sku=${comic.diamond_id}`,
-        {
-            headers: {
-                Authorization: `${process.env.METRON_BASIC_KEY}`,
-            },
-        }
-    )
+    // const idRes = await axios.get<Metron_ID_Res>(
+    //     `https://metron.cloud/api/issue/?number=${comic.issue_no}&series_name=${comic.title}&store_date=${comic.release_date}&sku=${comic.diamond_id}`,
+    //     {
+    //         headers: {
+    //             Authorization: `${process.env.METRON_BASIC_KEY}`,
+    //         },
+    //     }
+    // )
 
-    if (idRes.data.count > 0) {
-        const comicID = idRes.data.results[0].id
-        const comicData = await axios.get<Metron_Comics>(
-            `https://metron.cloud/api/issue/${comicID}`,
-            {
-                headers: {
-                    Authorization: `${process.env.METRON_BASIC_KEY}`,
-                },
-            }
-        )
-        return comicData.data.image
-    }
+    // if (idRes.data.count > 0) {
+    //     const comicID = idRes.data.results[0].id
+    //     const comicData = await axios.get<Metron_Comics>(
+    //         `https://metron.cloud/api/issue/${comicID}`,
+    //         {
+    //             headers: {
+    //                 Authorization: `${process.env.METRON_BASIC_KEY}`,
+    //             },
+    //         }
+    //     )
+    //     return comicData.data.image
+    // }
 
     const data = await axios.get('https://comicvine.gamespot.com/api/search/', {
         params: {

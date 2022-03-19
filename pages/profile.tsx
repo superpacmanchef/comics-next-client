@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { ServerResponse } from 'http'
 import { FaTrashAlt } from 'react-icons/fa'
 import Head from 'next/head'
@@ -28,13 +26,13 @@ export async function getServerSideProps(context: any) {
 const AddComicModal = (props: any) => {
     const { displayModal, updateDisplayModal } = props
 
-    const [collection, { collectionMutate }] = useCollection()
-
     const [addComicTitle, updateAddComicTitle] = useState('')
     const [addComicIssueNumber, updateAddComicIssueNumber] = useState('')
     const [addComicDate, updateAddComicDate] = useState<Date | null>(null)
     const [addComicID, updateAddComicID] = useState('')
     const [addComicUPC, updateAddComicUPC] = useState('')
+
+    const [collection, { collectionMutate }] = useCollection()
 
     const searchComic = async () => {
         if (addComicUPC !== '' && addComicUPC.length < 17) {
@@ -71,22 +69,29 @@ const AddComicModal = (props: any) => {
                 comicID: addComicID,
                 comicUPC: upcCopy,
             })
-            await addComicToCollection(data.data, collectionMutate)
-            updateAddComicID('')
-            updateAddComicUPC('')
-            updateAddComicDate(new Date())
-            updateAddComicIssueNumber('')
-            updateAddComicTitle('')
-            updateDisplayModal(false)
+
+            if (data.data === '') {
+                alert('Something went Wrong. Try adding more fields')
+            } else {
+                await addComicToCollection(data.data, collectionMutate)
+                updateAddComicID('')
+                updateAddComicUPC('')
+                updateAddComicDate(new Date())
+                updateAddComicIssueNumber('')
+                updateAddComicTitle('')
+                updateDisplayModal(false)
+            }
         } catch (err) {
             console.log(err)
 
-            alert('Something went Wrong')
+            alert('Something went Wrong. Try adding more fields')
         }
     }
 
     return (
         <div
+            tabIndex={-5}
+            role="button"
             className={`fixed inset-0 items-center justify-center bg-gray-700 bg-opacity-50 text-white z-50 ${
                 displayModal ? 'flex ' : 'hidden '
             }`}
@@ -94,22 +99,35 @@ const AddComicModal = (props: any) => {
                 e.stopPropagation()
                 updateDisplayModal(false)
             }}
+            onKeyPress={(e) => {
+                e.stopPropagation()
+                updateDisplayModal(false)
+            }}
         >
             <div
+                tabIndex={-5}
+                role="button"
                 className="flex flex-col w-11/12 p-6 bg-gray-700 divide-y divide-gray-500 rounded-md h-3/4 md:w-1/4"
                 onClick={(e) => {
+                    e.stopPropagation()
+                }}
+                onKeyPress={(e) => {
                     e.stopPropagation()
                 }}
             >
                 <div className="flex items-center justify-between">
                     <h3 className="text-2xl">Add Comic To Collection</h3>
                     <svg
+                        tabIndex={0}
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-10 h-10 hover:text-red-600 hover:cursor-pointer"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         onClick={() => {
+                            updateDisplayModal(false)
+                        }}
+                        onKeyPress={() => {
                             updateDisplayModal(false)
                         }}
                     >
@@ -216,7 +234,7 @@ const Profile = () => {
         <div className="flex flex-col flex-1 min-w-full min-h-screen">
             <Head>
                 <title>Comics Thingy</title>
-                <meta name="User Profilenm nn m 8mn" content="Profile Page" />
+                <meta name="User Profile" content="Profile Page" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <TopNav />
@@ -242,10 +260,6 @@ const Profile = () => {
                         {pageToShow === 'Collection' &&
                         collection.collection ? (
                             <div className="mx-auto mt-8 md:mx-32">
-                                <AddComicModal
-                                    displayModal={displayModal}
-                                    updateDisplayModal={updateDisplayModal}
-                                />
                                 <div className="flex flex-col mb-6">
                                     <MainButton
                                         text="Add Button To Collection"
@@ -255,6 +269,10 @@ const Profile = () => {
                                         }}
                                     />
                                 </div>
+                                <AddComicModal
+                                    displayModal={displayModal}
+                                    updateDisplayModal={updateDisplayModal}
+                                />
                                 <div className="flex flex-col justify-center flex-1">
                                     <ComicComponent
                                         chosenWeeksComicsFilter={

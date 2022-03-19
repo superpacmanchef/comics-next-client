@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useRouter } from 'next/router'
 import { useUser } from '../../lib/hooks'
 import MainButton from '../elements/mainButton'
@@ -9,16 +7,21 @@ const TopNav = () => {
     const [user] = useUser()
 
     return (
-        <div className="fixed z-30 flex flex-row items-center w-full h-16 px-1 py-4 bg-black shadow-md md:px-4 justify-items-center">
+        <div className="fixed z-40 flex flex-row items-center w-full h-16 px-1 py-4 bg-gray-800 shadow-md md:px-4 justify-items-center">
             <div className="flex items-center flex-1 mx-4 lg:mx-8">
-                <p
-                    className="w-auto text-2xl text-white hover:cursor-pointer"
+                <div
+                    tabIndex={0}
+                    role="button"
                     onClick={() => {
                         router.push('/')
                     }}
+                    onKeyPress={() => {
+                        router.push('/')
+                    }}
+                    className="w-auto text-2xl text-white hover:cursor-pointer"
                 >
-                    Comics Thingy
-                </p>
+                    <p>Comics Thingy</p>
+                </div>
             </div>
             {!user ? (
                 <div className="flex mx-4 lg:mx-8">
