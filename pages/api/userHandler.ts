@@ -26,7 +26,7 @@ handler
     })
     .use((req: any, res: any, next) => {
         if (!req.user) {
-            res.status(200).send(null)
+            res.status(403).send(null)
         } else {
             next()
         }

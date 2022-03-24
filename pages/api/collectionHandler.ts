@@ -9,7 +9,7 @@ handler
     .use(auth)
     .use((req: any, res: any, next) => {
         if (!req.user) {
-            res.status(200).json([])
+            res.status(403).json([])
         } else {
             next()
         }

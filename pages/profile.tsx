@@ -1,4 +1,4 @@
-import { ServerResponse } from 'http'
+import { IncomingMessage, ServerResponse } from 'http'
 import { FaTrashAlt } from 'react-icons/fa'
 import Head from 'next/head'
 import axios from 'axios'
@@ -16,10 +16,9 @@ import addComicToCollection from '../utils/addComicToCollection'
 // TODO: Theres gotta be a better way to do this?
 export async function getServerSideProps(context: any) {
     await auth(context.req, new ServerResponse(context.req))
-    if (context.req.isAuthenticated() === false) {
+    if (context.req.isUnauthenticated()) {
         return { redirect: { destination: '/', permanent: false } }
     }
-
     return { props: {} }
 }
 
@@ -244,7 +243,7 @@ const Profile = () => {
             {!loading && !collectionLoading && (
                 <main className="pt-20">
                     <div className="flex flex-1">
-                        <p className="mx-auto mb-8 text-3xl">{`${user.username}'s Profile`}</p>
+                        <p className="mx-auto mb-8 text-3xl text-white">{`${user.username}'s Profile`}</p>
                     </div>
                     <div className="w-5/6 mx-auto">
                         <ButtonSwitch
