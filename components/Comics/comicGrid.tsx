@@ -35,20 +35,28 @@ const ComicGrid = (props: ComicsGridType) => {
                         comic={focusComic}
                     />
                     {comics && comics.length > 0 ? (
-                        <div className="grid grid-cols-2 mt-4 space-x-0 sm:grid-cols-3 lg:grid-cols-5">
+                        <div className="grid grid-cols-2 mt-4 space-x-4 sm:grid-cols-3 lg:grid-cols-5">
                             {comics.map((comic, index) => {
                                 return (
-                                    <div className="px-2 my-2 md:my-5">
+                                    <div
+                                        tabIndex={0}
+                                        className="px-0 mx-4 my-2 md:my-5"
+                                        role="button"
+                                        onClick={() => {
+                                            updateDisplayModal(true)
+                                            updateFocusComic(comic)
+                                        }}
+                                        onKeyPress={() => {
+                                            updateDisplayModal(true)
+                                            updateFocusComic(comic)
+                                        }}
+                                    >
                                         <ComicTile
                                             title={comic.title}
                                             issue_no={comic.issue_no}
                                             img={comic.image}
                                             // eslint-disable-next-line react/no-array-index-key
                                             key={index}
-                                            updateFocusComic={() => {
-                                                updateFocusComic(comic)
-                                                updateDisplayModal(true)
-                                            }}
                                         />
                                     </div>
                                 )

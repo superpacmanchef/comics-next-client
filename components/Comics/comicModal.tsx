@@ -140,25 +140,27 @@ const ComicModal = (props: ComicModalProps) => {
                                             .some((el: boolean) => el) ? (
                                             <MainButton
                                                 styles="my-2 w-full"
-                                                text="Add to Collection"
                                                 onClick={() => {
                                                     addComicToCollection(
                                                         comic,
                                                         collectionMutate
                                                     )
                                                 }}
-                                            />
+                                            >
+                                                Add To Collection
+                                            </MainButton>
                                         ) : (
                                             <MainButton
                                                 styles="my-2 w-full"
-                                                text="Remove From Collection"
                                                 onClick={() => {
                                                     removeComicFromCollection(
                                                         comic,
                                                         collectionMutate
                                                     )
                                                 }}
-                                            />
+                                            >
+                                                Remove From Collection
+                                            </MainButton>
                                         )}
                                     </div>
                                 )}
@@ -173,7 +175,6 @@ const ComicModal = (props: ComicModalProps) => {
                                         ) ? (
                                             <MainButton
                                                 styles="my-2 w-full"
-                                                text="Add to Pull List"
                                                 onClick={() => {
                                                     addComicToPullList(
                                                         comic.title.replace(
@@ -183,11 +184,12 @@ const ComicModal = (props: ComicModalProps) => {
                                                         pullListMutate
                                                     )
                                                 }}
-                                            />
+                                            >
+                                                Add to Pull List
+                                            </MainButton>
                                         ) : (
                                             <MainButton
                                                 styles="my-2 w-full"
-                                                text="Remove From Pull List"
                                                 onClick={() => {
                                                     removeComicFromPullList(
                                                         comic.title
@@ -200,7 +202,9 @@ const ComicModal = (props: ComicModalProps) => {
                                                         pullListMutate
                                                     )
                                                 }}
-                                            />
+                                            >
+                                                Remove from Pull List
+                                            </MainButton>
                                         )}
                                     </div>
                                 )}

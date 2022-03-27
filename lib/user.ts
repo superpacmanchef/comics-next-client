@@ -1,10 +1,8 @@
 import bcrypt from 'bcrypt'
-import { emit } from 'process'
 import { insertUser, searchByEmail } from './userDatabase'
 
 const saltRound = 10
 
-// eslint-disable-next-line import/prefer-default-export
 export const userExist = async (username: string) => {
     return searchByEmail(username).then((entries) => {
         if (entries !== null) {

@@ -2,6 +2,7 @@ import axios from 'axios'
 import nextConnect from 'next-connect'
 
 const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
+    // MORE ACCURATE BUT HELLA SLOW
     // const idRes = await axios.get<Metron_ID_Res>(
     //     `https://metron.cloud/api/issue/?number=${comic.issue_no}&series_name=${comic.title}&store_date=${comic.release_date}&sku=${comic.diamond_id}`,
     //     {
@@ -27,7 +28,7 @@ const getPageData = async (comic: Comic_ShortBoxed_SplitTitle) => {
     const data = await axios.get('https://comicvine.gamespot.com/api/search/', {
         params: {
             api_key: `${process.env.COMIC_VINE_KEY}`,
-            query: `${comic.title} ${comic.issue_no} ${comic.diamond_id} ${comic.release_date} comic`,
+            query: `${comic.title} ${comic.issue_no} ${comic.diamond_id} comic`,
             format: 'json',
             resource_type: 'issue',
         },

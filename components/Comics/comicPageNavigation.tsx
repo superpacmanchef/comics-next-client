@@ -25,17 +25,17 @@ const ComicPageNavigation = (props: ComicPageNavigationProps) => {
             <div className="flex flex-row justify-center">
                 <div className="w-1/3 px-4 lg:w-40">
                     <MainButton
-                        text="Prev"
                         onClick={() => {
                             updateCurrentPage(currentPage - 1)
                         }}
                         styles="w-full"
                         disabled={currentPage === 0}
-                    />
+                    >
+                        Prev
+                    </MainButton>
                 </div>
                 <div className="w-1/3 px-4 lg:w-40">
                     <MainButton
-                        text="Next"
                         onClick={() => {
                             updateCurrentPage(currentPage + 1)
                         }}
@@ -45,7 +45,9 @@ const ComicPageNavigation = (props: ComicPageNavigationProps) => {
                             currentTotalPageNo === 0 ||
                             currentTotalPageNo === 1
                         }
-                    />
+                    >
+                        Next
+                    </MainButton>
                 </div>
             </div>
         </div>

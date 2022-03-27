@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ServerResponse } from 'http'
+import { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -14,14 +15,14 @@ import auth from '../middleware/auth'
 // TODO: Theres gotta be a better way to do this?
 export async function getServerSideProps(context: any) {
     await auth(context.req, new ServerResponse(context.req))
-    if (context.req.isAuthenticated() !== false) {
+    if (context.req.isAuthenticated()) {
         return { redirect: { destination: '/', permanent: false } }
     }
 
     return { props: {} }
 }
 
-const Login = () => {
+const Login: NextPage = () => {
     const [user, { mutate }] = useUser()
     const [collection, { collectionMutate }] = useCollection()
     const [pullList, { pullListMutate }] = usePull()
@@ -116,97 +117,119 @@ const Login = () => {
                 <main className="z-10 flex flex-col flex-1 w-full p-8 mx-auto bg-gray-400 rounded-md shadow-lg md:w-1/4 h-1/2 shadow-gray-900 ">
                     {toDisplay === 'Login' ? (
                         <>
-                            <p className="mx-auto mb-4 text-3xl">Log In</p>
+                            <h3 className="mx-auto mb-4 text-3xl">Log In</h3>
                             <div className="my-auto">
-                                <div className="flex flex-col mb-8">
-                                    <TextInput
-                                        placeholder="Email"
-                                        value={inputEmail}
-                                        onChange={(val) => {
-                                            updateInputEmail(val.target.value)
-                                        }}
-                                    />
-                                </div>
-                                <div className="flex flex-col mb-8">
-                                    <TextInput
-                                        passwordFlag
-                                        value={inputPassword}
-                                        onChange={(val) => {
-                                            updateInputPassword(
-                                                val.target.value
-                                            )
-                                        }}
-                                        placeholder="Password"
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <MainButton
-                                        text="Log In"
-                                        onClick={() => {
-                                            logUser()
-                                        }}
-                                        styles="mx-auto w-1/2 shadow shadow-gray-500"
-                                    />
-                                </div>
+                                <form
+                                    onSubmit={(e) => {
+                                        e.preventDefault()
+                                        logUser()
+                                    }}
+                                >
+                                    <div className="flex flex-col mb-8">
+                                        <TextInput
+                                            placeholder="Email"
+                                            requiredFlag
+                                            value={inputEmail}
+                                            onChange={(val) => {
+                                                updateInputEmail(
+                                                    val.target.value
+                                                )
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="flex flex-col mb-8">
+                                        <TextInput
+                                            passwordFlag
+                                            value={inputPassword}
+                                            requiredFlag
+                                            onChange={(val) => {
+                                                updateInputPassword(
+                                                    val.target.value
+                                                )
+                                            }}
+                                            placeholder="Password"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <MainButton
+                                            styles="mx-auto w-1/2 shadow shadow-gray-500"
+                                            submitFlag
+                                        >
+                                            Log In
+                                        </MainButton>
+                                    </div>
+                                </form>
                             </div>
                         </>
                     ) : (
                         <>
-                            <p className="mx-auto mb-4 text-3xl">Register</p>
+                            <h3 className="mx-auto mb-4 text-3xl">Register</h3>
                             <div className="my-auto">
-                                <div className="flex flex-col mb-8">
-                                    <TextInput
-                                        placeholder="Username"
-                                        value={inputUsername}
-                                        onChange={(val) => {
-                                            updateInputUsername(
-                                                val.target.value
-                                            )
-                                        }}
-                                    />
-                                </div>
-                                <div className="flex flex-col mb-8">
-                                    <TextInput
-                                        value={inputEmail}
-                                        onChange={(val) => {
-                                            updateInputEmail(val.target.value)
-                                        }}
-                                        placeholder="Email"
-                                    />
-                                </div>
-                                <div className="flex flex-col mb-8">
-                                    <TextInput
-                                        passwordFlag
-                                        value={inputPassword}
-                                        onChange={(val) => {
-                                            updateInputPassword(
-                                                val.target.value
-                                            )
-                                        }}
-                                        placeholder="Password"
-                                    />
-                                </div>
-                                <div className="flex flex-col mb-8">
-                                    <TextInput
-                                        passwordFlag
-                                        value={inputPasswordRepeat}
-                                        onChange={(val) => {
-                                            updateInputPasswordRepeat(
-                                                val.target.value
-                                            )
-                                        }}
-                                        placeholder="Passwsord Repeat"
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <MainButton
-                                        text="Register"
-                                        onClick={() => {
-                                            regUser()
-                                        }}
-                                        styles="mx-auto w-1/2 shadow shadow-gray-500"
-                                    />
-                                </div>
+                                <form
+                                    onSubmit={(e) => {
+                                        e.preventDefault()
+                                        regUser()
+                                    }}
+                                >
+                                    <div className="flex flex-col mb-8">
+                                        <TextInput
+                                            placeholder="Username"
+                                            requiredFlag
+                                            value={inputUsername}
+                                            onChange={(val) => {
+                                                updateInputUsername(
+                                                    val.target.value
+                                                )
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="flex flex-col mb-8">
+                                        <TextInput
+                                            value={inputEmail}
+                                            requiredFlag
+                                            onChange={(val) => {
+                                                updateInputEmail(
+                                                    val.target.value
+                                                )
+                                            }}
+                                            placeholder="Email"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col mb-8">
+                                        <TextInput
+                                            passwordFlag
+                                            value={inputPassword}
+                                            requiredFlag
+                                            onChange={(val) => {
+                                                updateInputPassword(
+                                                    val.target.value
+                                                )
+                                            }}
+                                            placeholder="Password"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col mb-8">
+                                        <TextInput
+                                            passwordFlag
+                                            value={inputPasswordRepeat}
+                                            onChange={(val) => {
+                                                updateInputPasswordRepeat(
+                                                    val.target.value
+                                                )
+                                            }}
+                                            requiredFlag
+                                            placeholder="Passwsord Repeat"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <MainButton
+                                            submitFlag
+                                            styles="mx-auto w-1/2 shadow shadow-gray-500"
+                                        >
+                                            Register
+                                        </MainButton>
+                                    </div>
+                                </form>
                             </div>
                         </>
                     )}

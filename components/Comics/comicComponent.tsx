@@ -50,15 +50,12 @@ const ComicComponent = (props: ComicComponentProps) => {
                     })
                     if (imageComics.length > 0) {
                         updateCurrentPageComics(imageComics)
-                        setTimeout(() => {
-                            updateLoading(false)
-                        }, 300)
                     } else {
                         updateCurrentPageComics([])
-                        setTimeout(() => {
-                            updateLoading(false)
-                        }, 300)
                     }
+                    setTimeout(() => {
+                        updateLoading(false)
+                    }, 300)
                 })
             }
         },
@@ -72,8 +69,7 @@ const ComicComponent = (props: ComicComponentProps) => {
             )
             pageChange(0)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [chosenWeeksComicsFilter])
+    }, [chosenWeeksComicsFilter, pageChange])
 
     return (
         <div>

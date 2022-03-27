@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import axios from 'axios'
 import nextConnect from 'next-connect'
 import auth from '../../middleware/auth'
@@ -35,8 +34,6 @@ const getComicData = async (
             Authorization: `${process.env.METRON_BASIC_KEY}`,
         },
     })
-
-    console.log(link)
 
     if (idRes.data.count > 0) {
         const metronComicID = idRes.data.results[0].id

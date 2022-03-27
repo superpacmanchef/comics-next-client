@@ -5,7 +5,7 @@ import { findUserByEmail, validatePassword } from './user'
 
 const LocalStrategy = passportLocal.Strategy
 
-passport.serializeUser(function (user: any, done) {
+passport.serializeUser((user: any, done) => {
     // serialize the username into session
     done(null, user.email)
 })

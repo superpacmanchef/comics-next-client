@@ -9,11 +9,10 @@ type ComicTileProps = {
     title: string
     img: string
     issue_no: string
-    updateFocusComic: () => void
 }
 
 const ComicTile = (props: ComicTileProps) => {
-    const { title, img, issue_no, updateFocusComic } = props
+    const { title, img, issue_no } = props
 
     const [pullList] = usePull()
 
@@ -38,9 +37,6 @@ const ComicTile = (props: ComicTileProps) => {
                     blurDataURL={img}
                     width={624}
                     src={img}
-                    onClick={() => {
-                        updateFocusComic()
-                    }}
                     quality={50}
                 />
             </div>

@@ -3,6 +3,7 @@ import { FaTrashAlt } from 'react-icons/fa'
 import Head from 'next/head'
 import axios from 'axios'
 import { useState } from 'react'
+import { NextPage } from 'next'
 import ComicComponent from '../components/Comics/comicComponent'
 import ButtonSwitch from '../components/elements/buttinSwitch'
 import TopNav from '../components/Nav/topNav'
@@ -141,81 +142,73 @@ const AddComicModal = (props: any) => {
                     </svg>
                 </div>
                 <div className="flex flex-col flex-1 mt-4 overflow-auto md:flex-row ">
-                    <div className="flex flex-row flex-1 pt-4">
-                        <div className="mx-auto text-black">
-                            <form
-                                onSubmit={(e) => {
-                                    e.preventDefault()
-                                }}
-                            >
-                                <div className="mb-2 md:mb-8">
-                                    <p>Comic Title</p>
-                                    <TextInput
-                                        placeholder="Amazing Spider-Man *"
-                                        value={addComicTitle}
-                                        onChange={(val) => {
-                                            updateAddComicTitle(
-                                                val.target.value
-                                            )
-                                        }}
-                                        requiredFlag
-                                    />
-                                </div>
-                                <div className="mb-2 md:mb-8">
-                                    <p>Comic Issue Number</p>
-                                    <TextInput
-                                        placeholder="7 *"
-                                        value={addComicIssueNumber}
-                                        onChange={(val) => {
-                                            updateAddComicIssueNumber(
-                                                val.target.value
-                                            )
-                                        }}
-                                        requiredFlag
-                                    />
-                                </div>
-                                <div className="mb-2 md:mb-8">
-                                    <p>Release Date</p>
-                                    <input
-                                        className="w-full h-12 p-2 mx-auto border border-gray-700 rounded-md shadow-inner shadow-gray-300"
-                                        type="month"
-                                        onChange={(val) => {
-                                            updateAddComicDate(
-                                                val.target.valueAsDate
-                                            )
-                                        }}
-                                    />
-                                </div>
-                                <div className="mb-2 md:mb-8">
-                                    <p>Diamond ID</p>
-                                    <TextInput
-                                        placeholder="MAR70865"
-                                        value={addComicID}
-                                        onChange={(val) => {
-                                            updateAddComicID(val.target.value)
-                                        }}
-                                    />
-                                </div>
-                                <div className="mb-3 md:mb-8">
-                                    <p>UPC Code</p>
-                                    <TextInput
-                                        placeholder="12345678901011"
-                                        value={addComicUPC}
-                                        onChange={(val) => {
-                                            updateAddComicUPC(val.target.value)
-                                        }}
-                                    />
-                                </div>
-                                <MainButton
-                                    text="Add Comic"
-                                    onClick={() => {
-                                        searchComic()
+                    <div className="flex flex-row flex-1 pt-4 mx-auto text-black">
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault()
+                                searchComic()
+                            }}
+                        >
+                            <div className="mb-2 md:mb-8">
+                                <p>Comic Title</p>
+                                <TextInput
+                                    placeholder="Amazing Spider-Man *"
+                                    value={addComicTitle}
+                                    onChange={(val) => {
+                                        updateAddComicTitle(val.target.value)
                                     }}
-                                    styles="w-full"
-                                    submitFlag
+                                    requiredFlag
                                 />
-                            </form>
-                        </div>
+                            </div>
+                            <div className="mb-2 md:mb-8">
+                                <p>Comic Issue Number</p>
+                                <TextInput
+                                    placeholder="7 *"
+                                    value={addComicIssueNumber}
+                                    onChange={(val) => {
+                                        updateAddComicIssueNumber(
+                                            val.target.value
+                                        )
+                                    }}
+                                    requiredFlag
+                                />
+                            </div>
+                            <div className="mb-2 md:mb-8">
+                                <p>Release Date</p>
+                                <input
+                                    className="w-full h-12 p-2 mx-auto border border-gray-700 rounded-md shadow-inner shadow-gray-300"
+                                    type="month"
+                                    onChange={(val) => {
+                                        updateAddComicDate(
+                                            val.target.valueAsDate
+                                        )
+                                    }}
+                                />
+                            </div>
+                            <div className="mb-2 md:mb-8">
+                                <p>Diamond ID</p>
+                                <TextInput
+                                    placeholder="MAR70865"
+                                    value={addComicID}
+                                    onChange={(val) => {
+                                        updateAddComicID(val.target.value)
+                                    }}
+                                />
+                            </div>
+                            <div className="mb-3 md:mb-8">
+                                <p>UPC Code</p>
+                                <TextInput
+                                    placeholder="12345678901011"
+                                    value={addComicUPC}
+                                    onChange={(val) => {
+                                        updateAddComicUPC(val.target.value)
+                                    }}
+                                />
+                            </div>
+                            <MainButton styles="w-full" submitFlag>
+                                Add Comic
+                            </MainButton>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -223,7 +216,7 @@ const AddComicModal = (props: any) => {
     )
 }
 
-const Profile = () => {
+const Profile: NextPage = () => {
     const [user, { loading }] = useUser()
     const [collection, { collectionLoading }] = useCollection()
     const [pullList, { pullListMutate }] = usePull()
@@ -263,12 +256,13 @@ const Profile = () => {
                             <div className="mx-auto mt-8 md:mx-32">
                                 <div className="flex flex-col mb-6">
                                     <MainButton
-                                        text="Add Button To Collection"
                                         styles="mx-auto justify-center"
                                         onClick={() => {
                                             updateDisplayModal(true)
                                         }}
-                                    />
+                                    >
+                                        Add To Collection
+                                    </MainButton>
                                 </div>
                                 <AddComicModal
                                     displayModal={displayModal}

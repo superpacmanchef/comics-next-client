@@ -1,9 +1,7 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import TopNav from '../components/Nav/topNav'
 import MainButton from '../components/elements/mainButton'
 import filterComicPublishers from '../utils/filterComicPublishers'
@@ -16,6 +14,7 @@ import { usePull, useUser } from '../lib/hooks'
 
 type HomeProps = {
     weekComics: Comic_ShortBoxed_SplitTitle_Image[]
+    initalChosenWeeksComics: Comic_ShortBoxed_SplitTitle_Image[]
 }
 
 export const getServerSideProps = async () => {
@@ -48,12 +47,11 @@ export const getServerSideProps = async () => {
 const Home: NextPage<HomeProps> = (props) => {
     const { weekComics } = props
 
-    const [chosenWeeksComics, updateChosenWeeksComics] = useState<
-        Comic_ShortBoxed_SplitTitle_Image[]
-    >([])
+    const [chosenWeeksComics, updateChosenWeeksComics] =
+        useState<Comic_ShortBoxed_SplitTitle_Image[]>(weekComics)
     const [chosenWeeksComicsFilter, updateChosenWeeksComicsFilter] = useState<
         Comic_ShortBoxed_SplitTitle_Image[] | null
-    >(null)
+    >(weekComics)
     const [currentChosenWeek, updateCurrentChosenWeek] = useState(1)
     const [lastChosenWeek, updateLastChosenWeek] = useState<number>(1)
     const [currentPublisher, updateCurrentPublisher] = useState('ALL')
@@ -92,24 +90,13 @@ const Home: NextPage<HomeProps> = (props) => {
         }
     }
 
-    useEffect(() => {
-        updateChosenWeeksComics(weekComics)
-        const filteredChosenWeeksComics = filterComicPublishers(
-            weekComics,
-            currentPublisher,
-            user ? pullList : { pullList: [] }
-        )
-        updateChosenWeeksComicsFilter(filteredChosenWeeksComics)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user, weekComics])
-
     return (
         <div className="flex flex-col flex-1 min-w-full min-h-full bg-gray-600">
             <Head>
                 <title>Comics Thingy</title>
                 <meta
-                    name="A list of all this weeks comic releases"
-                    content="Week Page"
+                    name="Week Page"
+                    content="A list of all this weeks comic releases"
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -150,12 +137,13 @@ const Home: NextPage<HomeProps> = (props) => {
                         </DropDown>
                     </div>
                     <MainButton
-                        text="Submit"
                         onClick={() => {
                             getWeeksComics()
                         }}
                         styles="w-3/5 mx-auto mt-4"
-                    />
+                    >
+                        Submit
+                    </MainButton>
                 </main>
 
                 <ComicComponent

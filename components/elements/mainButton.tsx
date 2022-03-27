@@ -1,38 +1,39 @@
 type Props = {
-    text: string
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    onClick: () => void
+    onClick?: () => void
     styles?: string
-    ref?: any
     disabled?: boolean
     submitFlag?: boolean
+    children: React.ReactNode
 }
 
 const MainButton = (props: Props) => {
-    const { text, onClick, styles, ref, disabled, submitFlag } = props
+    const { onClick, styles, disabled, submitFlag, children } = props
 
     return (
         <button
             disabled={disabled}
-            ref={ref}
             type={submitFlag ? 'submit' : 'button'}
             className={`bg-red-600 hover:bg-red-700 rounded-md px-4 py-2 disabled:bg-gray-500 text-white ${styles} `}
             onClick={() => {
-                onClick()
+                if (!submitFlag && onClick) {
+                    onClick()
+                }
             }}
             onKeyPress={() => {
-                onClick()
+                if (!submitFlag && onClick) {
+                    onClick()
+                }
             }}
         >
-            <p className="w-full text-base text-center">{text}</p>
+            {children}
         </button>
     )
 }
 
 MainButton.defaultProps = {
     styles: '',
-    ref: null,
     disabled: false,
     submitFlag: false,
+    onClick: () => {},
 }
 export default MainButton

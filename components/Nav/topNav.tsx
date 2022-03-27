@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCollection, usePull, useUser } from '../../lib/hooks'
 import MainButton from '../elements/mainButton'
@@ -19,7 +20,7 @@ const TopNav = () => {
     }
 
     return (
-        <div className="fixed z-40 flex flex-row items-center w-full h-16 px-1 py-4 bg-gray-800 shadow-md md:px-4 justify-items-center">
+        <nav className="fixed z-40 flex flex-row items-center w-full h-16 px-1 py-4 bg-gray-800 shadow-md md:px-4 justify-items-center">
             <div className="flex items-center flex-1 mx-4 lg:mx-8">
                 <div
                     tabIndex={0}
@@ -37,30 +38,26 @@ const TopNav = () => {
             </div>
             {!user ? (
                 <div className="flex mx-4 lg:mx-8">
-                    <MainButton
-                        text="Login"
-                        onClick={() => {
-                            router.push('/login')
-                        }}
-                    />
+                    <MainButton>
+                        <Link href="/login">Login</Link>
+                    </MainButton>
                 </div>
             ) : (
                 <div className="flex mx-4 space-x-4 lg:mx-8">
+                    <MainButton>
+                        <Link href="/profile">Profile</Link>
+                    </MainButton>
+
                     <MainButton
-                        text="Profile"
-                        onClick={() => {
-                            router.push('/profile')
-                        }}
-                    />
-                    <MainButton
-                        text="Log out"
                         onClick={() => {
                             logOut()
                         }}
-                    />
+                    >
+                        Log Out
+                    </MainButton>
                 </div>
             )}
-        </div>
+        </nav>
     )
 }
 
