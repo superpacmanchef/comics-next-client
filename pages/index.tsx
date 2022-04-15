@@ -29,17 +29,13 @@ export const getServerSideProps = async () => {
             ...comic,
             title: newComicTitle,
             issue_no,
+            image: 'null',
         }
     })
 
-    const weekArrayWithImage: Comic_ShortBoxed_SplitTitle_Image[] =
-        shortboxedSplitTitle.map((comic: Comic_ShortBoxed_SplitTitle) => {
-            return { ...comic, image: 'null' }
-        })
-
     return {
         props: {
-            weekComics: weekArrayWithImage,
+            weekComics: shortboxedSplitTitle,
         },
     }
 }
@@ -65,14 +61,9 @@ const Home: NextPage<HomeProps> = (props) => {
             axios
                 .get(`/api/weekComics?week=${currentChosenWeek}`)
                 .then((res) => {
-                    const weekArrayWithImage: Comic_ShortBoxed_SplitTitle_Image[] =
-                        res.data.map((comic: Comic_ShortBoxed_SplitTitle) => {
-                            return { ...comic, image: 'null' }
-                        })
-
-                    updateChosenWeeksComics(weekArrayWithImage)
+                    updateChosenWeeksComics(res.data)
                     const filteredChosenWeeksComics = filterComicPublishers(
-                        weekArrayWithImage,
+                        res.data,
                         currentPublisher,
                         user ? pullList : { pullList: [] }
                     )
@@ -100,7 +91,6 @@ const Home: NextPage<HomeProps> = (props) => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <TopNav />
 
             <Layout>
                 <main className="flex flex-col mb-4 md:w-1/4">

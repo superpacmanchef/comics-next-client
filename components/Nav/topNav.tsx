@@ -11,12 +11,11 @@ const TopNav = () => {
     const [pullList, { pullListMutate }] = usePull()
 
     const logOut = async () => {
+        router.push('/')
         await axios.post('/api/logout')
         mutate(null)
         collectionMutate([])
         pullListMutate([])
-
-        router.push('/')
     }
 
     return (

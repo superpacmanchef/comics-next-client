@@ -13,6 +13,7 @@ import removeComicFromPullList from '../utils/removeComicFromPullList'
 import MainButton from '../components/elements/mainButton'
 import TextInput from '../components/elements/textInput'
 import addComicToCollection from '../utils/addComicToCollection'
+import Layout from '../components/layout'
 
 // TODO: Theres gotta be a better way to do this?
 export async function getServerSideProps(context: any) {
@@ -142,7 +143,7 @@ const AddComicModal = (props: any) => {
                     </svg>
                 </div>
                 <div className="flex flex-col flex-1 mt-4 overflow-auto md:flex-row ">
-                    <div className="flex flex-row flex-1 pt-4 mx-auto text-black">
+                    <div className="flex flex-row justify-center flex-1 pt-4 mx-auto text-black">
                         <form
                             onSubmit={(e) => {
                                 e.preventDefault()
@@ -231,7 +232,6 @@ const Profile: NextPage = () => {
                 <meta name="User Profile" content="Profile Page" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <TopNav />
 
             {!loading && !collectionLoading && (
                 <main className="pt-20">

@@ -31,6 +31,7 @@ const ComicTile = (props: ComicTileProps) => {
                 )}
             <div className="flex w-5/6 mx-auto mt-6 transition duration-200 hover:cursor-pointer hover:scale-110">
                 <Image
+                    priority
                     alt={`${title} #${issue_no}`}
                     height={960}
                     placeholder="blur"

@@ -36,9 +36,10 @@ const Login: NextPage = () => {
 
     const router = useRouter()
 
+    const mailformat =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
     const logUser = async () => {
-        const mailformat =
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (!inputEmail.match(mailformat)) {
             alert('Valid email address!')
             return
@@ -64,8 +65,6 @@ const Login: NextPage = () => {
     }
 
     const regUser = async () => {
-        const mailformat =
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (!inputEmail.match(mailformat)) {
             alert('Valid email address!')
             return
@@ -102,7 +101,6 @@ const Login: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <TopNav />
             <Layout>
                 <ButtonSwitch
                     button1Text="Login"

@@ -30,6 +30,7 @@ handler.get(async (req: any, res: any) => {
                 ...comic,
                 title: newComicTitle,
                 issue_no,
+                image: 'null',
             }
         })
         res.status(200).json(shortboxedSplitTitle)

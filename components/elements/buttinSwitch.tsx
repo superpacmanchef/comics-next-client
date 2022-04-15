@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import { useState } from 'react'
 
 type ButtonSwitchPropType = {
@@ -9,19 +8,20 @@ type ButtonSwitchPropType = {
 }
 
 const SwitchButton = (props: any) => {
+    const { active, onClick, styles, text } = props
     return (
         <button
             type="button"
             className={`${
-                !props.active
+                !active
                     ? 'bg-red-600 hover:bg-red-700'
                     : 'bg-gray-500 hover:bg-slate-500'
-            } rounded-md px-4 py-2 text-white ${props.styles}`}
+            } rounded-md px-4 py-2 text-white ${styles}`}
             onClick={() => {
-                props.onClick()
+                onClick()
             }}
         >
-            <p className="w-full text-base text-center">{props.text}</p>
+            <p className="w-full text-base text-center">{text}</p>
         </button>
     )
 }

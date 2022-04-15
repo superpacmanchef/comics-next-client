@@ -35,7 +35,7 @@ const ComicComponent = (props: ComicComponentProps) => {
                 const currentPageImages = subArray.flatMap((comic) => {
                     if (comic.image === 'null' || comic.image === null) {
                         return axios
-                            .post('/api/pageComics', { comic })
+                            .post('/api/comicCover', { comic })
                             .then((res) => res.data)
                             .catch((err) => console.log(err))
                     }
