@@ -35,12 +35,12 @@ const ComicGrid = (props: ComicsGridType) => {
                         comic={focusComic}
                     />
                     {comics && comics.length > 0 ? (
-                        <div className="grid grid-cols-2 mt-4 space-x-4 sm:grid-cols-3 lg:grid-cols-5">
+                        <div className="grid grid-cols-2 mt-4 sm:grid-cols-3 lg:grid-cols-5">
                             {comics.map((comic, index) => {
                                 return (
                                     <div
                                         tabIndex={0}
-                                        className="px-0 mx-4 my-2 md:my-5"
+                                        className="px-0 mx-2 my-2 md:my-5"
                                         role="button"
                                         onClick={() => {
                                             updateDisplayModal(true)

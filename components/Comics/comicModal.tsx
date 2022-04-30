@@ -61,154 +61,149 @@ const ComicModal = (props: ComicModalProps) => {
                         </svg>
                     </div>
                     <div className="flex flex-col flex-1 mt-4 overflow-auto md:flex-row ">
-                        <div className="flex flex-row flex-1 pt-4">
-                            <div className="flex flex-1 ">
-                                <div className="w-3/4 p-3 mx-auto md:w-3/5">
-                                    <Image
-                                        height={960}
-                                        width={624}
-                                        alt={comic.title}
-                                        src={comic.image}
-                                        quality={50}
-                                        className="w-1/3 mx-auto md:w-auto"
-                                    />
-                                </div>
+                        <div className="flex flex-1 ">
+                            <div className="w-full p-3 mx-auto md:w-3/5">
+                                <Image
+                                    height={960}
+                                    width={624}
+                                    alt={comic.title}
+                                    src={comic.image}
+                                    quality={50}
+                                    className="w-1/3 mx-auto md:w-auto"
+                                />
                             </div>
-                            <div className="flex flex-col flex-1 w-11/12 ">
+                        </div>
+                        <div className="flex flex-col flex-1 w-11/12 ">
+                            <div className="flex flex-col mb-8">
+                                <p className="flex text-lg md:text-2xl">
+                                    Title
+                                </p>
+                                <p className="flex text-md md:text-xl">
+                                    {comic.title}{' '}
+                                    {comic.issue_no ? `#${comic.issue_no}` : ''}
+                                </p>
+                            </div>
+                            <div className="flex flex-col mb-8">
+                                <p className="flex text-lg md:text-2xl">
+                                    Description
+                                </p>
+                                <p className="flex text-md md:text-xl">
+                                    {comic.description}
+                                </p>
+                            </div>
+                            {comic.creators && (
                                 <div className="flex flex-col mb-8">
                                     <p className="flex text-lg md:text-2xl">
-                                        Title
+                                        Creators
                                     </p>
                                     <p className="flex text-md md:text-xl">
-                                        {comic.title}{' '}
-                                        {comic.issue_no
-                                            ? `#${comic.issue_no}`
-                                            : ''}
+                                        {comic.creators}
                                     </p>
                                 </div>
-                                <div className="flex flex-col mb-8">
-                                    <p className="flex text-lg md:text-2xl">
-                                        Description
-                                    </p>
-                                    <p className="flex text-md md:text-xl">
-                                        {comic.description}
-                                    </p>
-                                </div>
-                                {comic.creators && (
-                                    <div className="flex flex-col mb-8">
-                                        <p className="flex text-lg md:text-2xl">
-                                            Creators
-                                        </p>
-                                        <p className="flex text-md md:text-xl">
-                                            {comic.creators}
-                                        </p>
-                                    </div>
-                                )}
-                                <div className="flex flex-col mb-8">
-                                    <p className="flex text-lg md:text-2xl">
-                                        Publisher
-                                    </p>
-                                    <p className="flex text-md md:text-xl">
-                                        {comic.publisher}
-                                    </p>
-                                </div>
-                                <div className="flex flex-col mb-8">
-                                    <p className="flex text-lg md:text-2xl">
-                                        Release Date
-                                    </p>
-                                    <p className="flex text-md md:text-xl">
-                                        {comic.release_date}
-                                    </p>
-                                </div>
-                                {user && (
-                                    <div>
-                                        {collection.collection &&
-                                        !collection.collection
-                                            .map(
-                                                (
-                                                    collectionComic: Comic_ShortBoxed_SplitTitle_Image
-                                                ) => {
-                                                    if (
-                                                        collectionComic.diamond_id ===
-                                                        comic.diamond_id
-                                                    ) {
-                                                        return true
-                                                    }
-                                                    return false
+                            )}
+                            <div className="flex flex-col mb-8">
+                                <p className="flex text-lg md:text-2xl">
+                                    Publisher
+                                </p>
+                                <p className="flex text-md md:text-xl">
+                                    {comic.publisher}
+                                </p>
+                            </div>
+                            <div className="flex flex-col mb-8">
+                                <p className="flex text-lg md:text-2xl">
+                                    Release Date
+                                </p>
+                                <p className="flex text-md md:text-xl">
+                                    {comic.release_date}
+                                </p>
+                            </div>
+                            {user && (
+                                <div>
+                                    {collection.collection &&
+                                    !collection.collection
+                                        .map(
+                                            (
+                                                collectionComic: Comic_ShortBoxed_SplitTitle_Image
+                                            ) => {
+                                                if (
+                                                    collectionComic.diamond_id ===
+                                                    comic.diamond_id
+                                                ) {
+                                                    return true
                                                 }
-                                            )
-                                            .some((el: boolean) => el) ? (
-                                            <MainButton
-                                                styles="my-2 w-full"
-                                                onClick={() => {
-                                                    addComicToCollection(
-                                                        comic,
-                                                        collectionMutate
-                                                    )
-                                                }}
-                                            >
-                                                Add To Collection
-                                            </MainButton>
-                                        ) : (
-                                            <MainButton
-                                                styles="my-2 w-full"
-                                                onClick={() => {
-                                                    removeComicFromCollection(
-                                                        comic,
-                                                        collectionMutate
-                                                    )
-                                                }}
-                                            >
-                                                Remove From Collection
-                                            </MainButton>
-                                        )}
-                                    </div>
-                                )}
+                                                return false
+                                            }
+                                        )
+                                        .some((el: boolean) => el) ? (
+                                        <MainButton
+                                            styles="my-2 w-full"
+                                            onClick={() => {
+                                                addComicToCollection(
+                                                    comic,
+                                                    collectionMutate
+                                                )
+                                            }}
+                                        >
+                                            Add To Collection
+                                        </MainButton>
+                                    ) : (
+                                        <MainButton
+                                            styles="my-2 w-full"
+                                            onClick={() => {
+                                                removeComicFromCollection(
+                                                    comic,
+                                                    collectionMutate
+                                                )
+                                            }}
+                                        >
+                                            Remove From Collection
+                                        </MainButton>
+                                    )}
+                                </div>
+                            )}
 
-                                {user && (
-                                    <div>
-                                        {pullList.pullList &&
-                                        !pullList.pullList.includes(
-                                            comic.title
-                                                .toUpperCase()
-                                                .replace('THE ' || 'The ', '')
-                                        ) ? (
-                                            <MainButton
-                                                styles="my-2 w-full"
-                                                onClick={() => {
-                                                    addComicToPullList(
-                                                        comic.title.replace(
+                            {user && (
+                                <div>
+                                    {pullList.pullList &&
+                                    !pullList.pullList.includes(
+                                        comic.title
+                                            .toUpperCase()
+                                            .replace('THE ' || 'The ', '')
+                                    ) ? (
+                                        <MainButton
+                                            styles="my-2 w-full"
+                                            onClick={() => {
+                                                addComicToPullList(
+                                                    comic.title.replace(
+                                                        'The ' || 'The ',
+                                                        ''
+                                                    ),
+                                                    pullListMutate
+                                                )
+                                            }}
+                                        >
+                                            Add to Pull List
+                                        </MainButton>
+                                    ) : (
+                                        <MainButton
+                                            styles="my-2 w-full"
+                                            onClick={() => {
+                                                removeComicFromPullList(
+                                                    comic.title
+                                                        .replace(
                                                             'The ' || 'The ',
                                                             ''
-                                                        ),
-                                                        pullListMutate
-                                                    )
-                                                }}
-                                            >
-                                                Add to Pull List
-                                            </MainButton>
-                                        ) : (
-                                            <MainButton
-                                                styles="my-2 w-full"
-                                                onClick={() => {
-                                                    removeComicFromPullList(
-                                                        comic.title
-                                                            .replace(
-                                                                'The ' ||
-                                                                    'The ',
-                                                                ''
-                                                            )
-                                                            .toUpperCase(),
-                                                        pullListMutate
-                                                    )
-                                                }}
-                                            >
-                                                Remove from Pull List
-                                            </MainButton>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
+                                                        )
+                                                        .toUpperCase(),
+                                                    pullListMutate
+                                                )
+                                            }}
+                                        >
+                                            Remove from Pull List
+                                        </MainButton>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
